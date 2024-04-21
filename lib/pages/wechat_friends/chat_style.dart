@@ -4,11 +4,11 @@ var backgroundImage =
     'https://hbimg.huabanimg.com/907605885b6dac544640128d8f5c6b089de96519117bb5-VdbptL';
 
 class Line extends StatelessWidget {
-  final Color color;
-  final EdgeInsetsGeometry margin;
-  final double lineHeight;
+  final Color? color;
+  final EdgeInsetsGeometry? margin;
+  final double? lineHeight;
 
-  Line({Key key, this.color, this.margin, this.lineHeight: 0.2})
+  Line({Key? key, this.color, this.margin, this.lineHeight=0.2})
       : super(key: key);
 
   @override
@@ -22,9 +22,9 @@ class Line extends StatelessWidget {
 
 class TextStyles {
   static TextStyle textStyle(
-      {double fontSize: Dimens.font_sp12,
-        Color color: Colors.white,
-        FontWeight fontWeight}) {
+      {double fontSize= Dimens.font_sp12,
+      Color color= Colors.white,
+      FontWeight? fontWeight}) {
     return TextStyle(
         fontSize: fontSize,
         color: color,
@@ -34,36 +34,36 @@ class TextStyles {
 
   static TextStyle textWhite14 = textStyle(fontSize: Dimens.font_sp14);
   static TextStyle textRed14 =
-  textStyle(fontSize: Dimens.font_sp14, color: Colors.red);
+      textStyle(fontSize: Dimens.font_sp14, color: Colors.red);
 
   static TextStyle textGrey14 =
-  textStyle(fontSize: Dimens.font_sp14, color: Colors.grey);
+      textStyle(fontSize: Dimens.font_sp14, color: Colors.grey);
   static TextStyle textDark14 =
-  textStyle(fontSize: Dimens.font_sp14, color: grey3Color);
+      textStyle(fontSize: Dimens.font_sp14, color: grey3Color);
   static TextStyle textBoldDark14 = textStyle(
       fontSize: Dimens.font_sp14,
       color: Colors.black,
       fontWeight: FontWeight.bold);
   static TextStyle textBoldWhile14 =
-  textStyle(fontSize: Dimens.font_sp14, fontWeight: FontWeight.bold);
+      textStyle(fontSize: Dimens.font_sp14, fontWeight: FontWeight.bold);
   static TextStyle textBoldBlue14 = textStyle(
       fontSize: Dimens.font_sp14,
       fontWeight: FontWeight.bold,
       color: Colors.blueAccent);
 
   static TextStyle textReader16 =
-  textStyle(fontSize: Dimens.font_sp16, color: readerMainColor);
+      textStyle(fontSize: Dimens.font_sp16, color: readerMainColor);
   static TextStyle textRed16 =
-  textStyle(fontSize: Dimens.font_sp16, color: Colors.red);
+      textStyle(fontSize: Dimens.font_sp16, color: Colors.red);
   static TextStyle textBlue16 =
-  textStyle(fontSize: Dimens.font_sp16, color: Colors.blueAccent);
+      textStyle(fontSize: Dimens.font_sp16, color: Colors.blueAccent);
   static TextStyle textWhite16 = textStyle(fontSize: Dimens.font_sp16);
   static TextStyle textGreyC16 =
-  textStyle(fontSize: Dimens.font_sp16, color: greyCColor);
+      textStyle(fontSize: Dimens.font_sp16, color: greyCColor);
   static TextStyle textGrey16 =
-  textStyle(fontSize: Dimens.font_sp16, color: Colors.grey);
+      textStyle(fontSize: Dimens.font_sp16, color: Colors.grey);
   static TextStyle textDark16 =
-  textStyle(fontSize: Dimens.font_sp16, color: grey3Color);
+      textStyle(fontSize: Dimens.font_sp16, color: grey3Color);
 }
 
 class Dimens {
@@ -141,4 +141,3 @@ const Color grey9Color = const Color(0xFF999999);
 
 const Color qdailyMajorColor = const Color(0xFFFFD003);
 const Color qdailyMinorColor = const Color(0xFFFFE48E);
-

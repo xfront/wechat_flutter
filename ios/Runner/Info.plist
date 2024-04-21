@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Wechat Flutter</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -42,13 +44,17 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>NSAppTransportSecurity</key>
+    <false/>
+    <key>NSAppTransportSecurity</key>
     <dict>
-    	<key>NSAllowsArbitraryLoads</key>
+        <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Replace with your permission description.</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

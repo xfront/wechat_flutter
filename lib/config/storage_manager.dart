@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageManager {
   /// app全局配置
-  static SharedPreferences sp;
+  static SharedPreferences? sp;
 
   /// 网络连接
   var connect;
@@ -34,11 +34,10 @@ class StorageManager {
           await SharedUtil.instance.saveBoolean(Keys.brokenNetwork, true);
         } else {
           await SharedUtil.instance.saveBoolean(Keys.brokenNetwork, false);
-          final hasLogged =
-          await SharedUtil.instance.getBoolean(Keys.hasLogged);
+          final hasLogged = await SharedUtil.instance.getBoolean(Keys.hasLogged)??false;
           final currentUser = await im.getCurrentLoginUser();
           if (hasLogged) if (currentUser == '' || currentUser == null) {
-            final account = await SharedUtil.instance.getString(Keys.account);
+            final account = await SharedUtil.instance.getString(Keys.account)??"";
             im.imAutoLogin(account);
           }
         }

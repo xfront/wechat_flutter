@@ -13,7 +13,7 @@ codeDialog(BuildContext context, List items) {
               )
             : null,
       ),
-      child: new FlatButton(
+      child: new MaterialButton(
         color: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 15.0),
         onPressed: () {
@@ -49,7 +49,7 @@ codeDialog(BuildContext context, List items) {
                     children: <Widget>[
                       new Column(children: items.map(item).toList()),
                       new HorizontalLine(color: appBarColor, height: 10.0),
-                      new FlatButton(
+                      new MaterialButton(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
                         color: Colors.white,
                         onPressed: () => Navigator.of(context).pop(),

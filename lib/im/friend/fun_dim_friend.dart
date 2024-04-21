@@ -33,11 +33,11 @@ class DimFriend {
   }
 
   static Future<dynamic> getUsersProfile(String userName, Callback callback,
-      {List<String> userS}) async {
+      {List<String>? userS}) async {
     try {
-      List<String> ls = new List();
+      List<String> ls =  List.empty(growable: true);
       ls.add(userName);
-      var result = await dim.getUsersProfile(listNoEmpty(userS) ? userS : ls);
+      var result = await dim.getUsersProfile(listNoEmpty(userS) ? userS! : ls);
       callback(result);
     } on PlatformException {
       print('获取用户信息  失败');
@@ -54,30 +54,30 @@ class DimFriend {
   }
 
   static Future<dynamic> createGroupChat(List<String> personList,
-      {String name, Callback callback}) async {
+      {String? name, Callback? callback}) async {
     try {
       var result =
-          await dim.createGroupChat(name: name, personList: personList);
-      callback(result);
+          await dim.createGroupChat(name: name??"", personList: personList);
+      callback?.call(result);
     } on PlatformException {
       print('创建群组  失败');
     }
   }
 
   static Future<dynamic> editFriendNotesModel(String id, String remarks,
-      {Callback callback}) async {
+      {Callback? callback}) async {
     try {
       var result = await dim.editFriendNotes(id, remarks);
-      callback(result);
+      callback?.call(result);
     } on PlatformException {
       print('修改备注失败');
     }
   }
 
-  static Future<dynamic> getRemarkModel(String id, {Callback callback}) async {
+  static Future<dynamic> getRemarkModel(String id, {Callback? callback}) async {
     try {
       var result = await dim.getRemark(id);
-      callback(result);
+      callback?.call(result);
       return result;
     } on PlatformException {
       print('获取备注失败');

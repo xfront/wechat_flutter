@@ -19,14 +19,14 @@ class _LoginBeginPageState extends State<LoginBeginPage> {
   Widget body(GlobalModel model) {
     var buttons = [
       new ComMomButton(
-        text: S.of(context).login,
+        text: context.l10n.login,
         margin: EdgeInsets.only(left: 10.0),
         width: 100.0,
         onTap: () => routePush(
             ProviderConfig.getInstance().getLoginPage(new LoginPage())),
       ),
       new ComMomButton(
-          text: S.of(context).register,
+          text: context.l10n.register,
           color: bgColor,
           style:
               TextStyle(fontSize: 15.0, color: Color.fromRGBO(8, 191, 98, 1.0)),
@@ -44,7 +44,7 @@ class _LoginBeginPageState extends State<LoginBeginPage> {
           child: new InkWell(
             child: new Padding(
               padding: EdgeInsets.all(10.0),
-              child: new Text(S.of(context).language,
+              child: new Text(context.l10n.language,
                   style: TextStyle(color: Colors.white)),
             ),
             onTap: () => routePush(new LanguagePage()),

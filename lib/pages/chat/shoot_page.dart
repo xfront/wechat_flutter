@@ -18,19 +18,19 @@ class ShootPage extends StatefulWidget {
 }
 
 class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
-  Timer _timer;
+  late Timer _timer;
   int _timing = 0;
 
-  CameraController controller;
-  String imagePath;
-  String videoPath;
-  VideoPlayerController videoController;
-  VoidCallback videoPlayerListener;
+  CameraController? controller;
+   String? imagePath;
+  late String videoPath;
+  VideoPlayerController? videoController;
+  late VoidCallback videoPlayerListener;
 
   bool isReverse = false;
   bool isOnPress = false;
 
-  CameraDescription cameraDescription;
+  late CameraDescription cameraDescription;
 
   @override
   void initState() {
@@ -45,14 +45,14 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (controller == null || !controller.value.isInitialized) {
+    if (controller == null || !controller!.value.isInitialized) {
       return;
     }
     if (state == AppLifecycleState.inactive) {
       controller?.dispose();
     } else if (state == AppLifecycleState.resumed) {
       if (controller != null) {
-        onNewCameraSelected(controller.description);
+        onNewCameraSelected(controller!.description);
       }
     }
   }
@@ -221,7 +221,7 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
   }
 
   Widget _cameraPreviewWidget() {
-    if (controller == null || !controller.value.isInitialized) {
+    if (controller == null || !controller!.value.isInitialized) {
       return const Text(
         '使用相机',
         style: TextStyle(
@@ -232,8 +232,8 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
       );
     } else {
       return new AspectRatio(
-        aspectRatio: controller.value.aspectRatio,
-        child: new CameraPreview(controller),
+        aspectRatio: controller!.value.aspectRatio,
+        child: new CameraPreview(controller!),
       );
     }
   }
@@ -248,17 +248,17 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
               ? new Container()
               : SizedBox(
                   child: (videoController == null)
-                      ? Image.file(File(imagePath))
+                      ? Image.file(File(imagePath!))
                       : Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.red, width: 1.5),
                           ),
                           child: AspectRatio(
-                            aspectRatio: videoController.value.size != null
-                                ? videoController.value.aspectRatio
+                            aspectRatio: videoController!.value.size != null
+                                ? videoController!.value.aspectRatio
                                 : 1.0,
-                            child: VideoPlayer(videoController),
+                            child: VideoPlayer(videoController!),
                           ),
                         ),
                   width: 64.0,
@@ -270,7 +270,7 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
                   margin: EdgeInsets.only(top: 10.0),
                   width: 60.0,
                   height: 25.0,
-                  child: new FlatButton(
+                  child: new MaterialButton(
                     onPressed: () {},
                     color: Colors.white,
                     padding: EdgeInsets.all(0),
@@ -295,8 +295,8 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
           icon: const Icon(Icons.camera_alt),
           color: Colors.blue,
           onPressed: controller != null &&
-                  controller.value.isInitialized &&
-                  !controller.value.isRecordingVideo
+                  controller!.value.isInitialized &&
+                  !controller!.value.isRecordingVideo
               ? onTakePictureButtonPressed
               : null,
         ),
@@ -304,20 +304,20 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
           icon: const Icon(Icons.videocam),
           color: Colors.blue,
           onPressed: controller != null &&
-                  controller.value.isInitialized &&
-                  !controller.value.isRecordingVideo
+                  controller!.value.isInitialized &&
+                  !controller!.value.isRecordingVideo
               ? onVideoRecordButtonPressed
               : null,
         ),
         IconButton(
-          icon: controller != null && controller.value.isRecordingPaused
+          icon: controller != null && controller!.value.isRecordingPaused
               ? Icon(Icons.play_arrow)
               : Icon(Icons.pause),
           color: Colors.blue,
           onPressed: controller != null &&
-                  controller.value.isInitialized &&
-                  controller.value.isRecordingVideo
-              ? (controller != null && controller.value.isRecordingPaused
+                  controller!.value.isInitialized &&
+                  controller!.value.isRecordingVideo
+              ? (controller != null && controller!.value.isRecordingPaused
                   ? onResumeButtonPressed
                   : onPauseButtonPressed)
               : null,
@@ -326,8 +326,8 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
           icon: const Icon(Icons.stop),
           color: Colors.red,
           onPressed: controller != null &&
-                  controller.value.isInitialized &&
-                  controller.value.isRecordingVideo
+                  controller!.value.isInitialized &&
+                  controller!.value.isRecordingVideo
               ? onStopButtonPressed
               : null,
         )
@@ -339,7 +339,7 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
 
   void onNewCameraSelected(CameraDescription cameraDescription) async {
     if (controller != null) {
-      await controller.dispose();
+      await controller!.dispose();
     }
     controller = CameraController(
       cameraDescription,
@@ -348,15 +348,15 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
     );
 
     // If the controller is updated then update the UI.
-    controller.addListener(() {
+    controller!.addListener(() {
       if (mounted) setState(() {});
-      if (controller.value.hasError) {
-        showToast(context, 'Camera error ${controller.value.errorDescription}');
+      if (controller!.value.hasError) {
+        showToast(context, 'Camera error ${controller!.value.errorDescription}');
       }
     });
 
     try {
-      await controller.initialize();
+      await controller!.initialize();
     } on CameraException catch (e) {
       _showCameraException(e);
     }
@@ -367,10 +367,10 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
   }
 
   void onTakePictureButtonPressed() {
-    takePicture().then((String filePath) {
+    takePicture().then((String? filePath) {
       if (mounted) {
         setState(() {
-          imagePath = filePath;
+          imagePath = filePath??"";
           videoController?.dispose();
           videoController = null;
         });
@@ -380,7 +380,7 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
   }
 
   void onVideoRecordButtonPressed() {
-    startVideoRecording().then((String filePath) {
+    startVideoRecording().then((String? filePath) {
       if (mounted) setState(() {});
       if (filePath != null) showToast(context, '开始录制');
     });
@@ -407,8 +407,8 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
     });
   }
 
-  Future<String> startVideoRecording() async {
-    if (!controller.value.isInitialized) {
+  Future<String?> startVideoRecording() async {
+    if (!controller!.value.isInitialized) {
       showToast(context, '异常: 首先选择一个相机');
       return null;
     }
@@ -418,14 +418,14 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
     await Directory(dirPath).create(recursive: true);
     final String filePath = '$dirPath/${timestamp()}.mp4';
 
-    if (controller.value.isRecordingVideo) {
+    if (controller!.value.isRecordingVideo) {
       // A recording is already started, do nothing.
       return null;
     }
 
     try {
       videoPath = filePath;
-      await controller.startVideoRecording(filePath);
+      await controller!.startVideoRecording();
     } on CameraException catch (e) {
       _showCameraException(e);
       return null;
@@ -434,12 +434,12 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
   }
 
   Future<void> stopVideoRecording() async {
-    if (!controller.value.isRecordingVideo) {
+    if (!controller!.value.isRecordingVideo) {
       return null;
     }
 
     try {
-      await controller.stopVideoRecording();
+      await controller!.stopVideoRecording();
     } on CameraException catch (e) {
       _showCameraException(e);
       return null;
@@ -449,12 +449,12 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
   }
 
   Future<void> pauseVideoRecording() async {
-    if (!controller.value.isRecordingVideo) {
+    if (!controller!.value.isRecordingVideo) {
       return null;
     }
 
     try {
-      await controller.pauseVideoRecording();
+      await controller!.pauseVideoRecording();
     } on CameraException catch (e) {
       _showCameraException(e);
       rethrow;
@@ -462,12 +462,12 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
   }
 
   Future<void> resumeVideoRecording() async {
-    if (!controller.value.isRecordingVideo) {
+    if (!controller!.value.isRecordingVideo) {
       return null;
     }
 
     try {
-      await controller.resumeVideoRecording();
+      await controller!.resumeVideoRecording();
     } on CameraException catch (e) {
       _showCameraException(e);
       rethrow;
@@ -478,10 +478,10 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
     final VideoPlayerController vcontroller =
         VideoPlayerController.file(File(videoPath));
     videoPlayerListener = () {
-      if (videoController != null && videoController.value.size != null) {
+      if (videoController != null && videoController!.value.size != null) {
         // Refreshing the state to update video player with the correct ratio.
         if (mounted) setState(() {});
-        videoController.removeListener(videoPlayerListener);
+        videoController!.removeListener(videoPlayerListener);
       }
     };
     vcontroller.addListener(videoPlayerListener);
@@ -497,8 +497,8 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
     await vcontroller.play();
   }
 
-  Future<String> takePicture() async {
-    if (!controller.value.isInitialized) {
+  Future<String?> takePicture() async {
+    if (!controller!.value.isInitialized) {
       showToast(context, '异常: 首先选择一个相机');
       return null;
     }
@@ -507,13 +507,13 @@ class _ShootPageState extends State<ShootPage> with WidgetsBindingObserver {
     await Directory(dirPath).create(recursive: true);
     final String filePath = '$dirPath/${timestamp()}.jpg';
 
-    if (controller.value.isTakingPicture) {
+    if (controller!.value.isTakingPicture) {
       // A capture is already pending, do nothing.
       return null;
     }
 
     try {
-      await controller.takePicture(filePath);
+      await controller!.takePicture();
     } on CameraException catch (e) {
       _showCameraException(e);
       return null;

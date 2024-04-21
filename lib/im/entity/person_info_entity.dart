@@ -16,19 +16,19 @@
 *
 * */
 class PersonInfoEntity {
-  int birthday;
-  String identifier;
-  int role;
-  int gender;
-  int level;
-  String nickName;
-  int language;
-  PersonInfoCustominfo customInfo;
-  String selfSignature;
+  int? birthday;
+  String? identifier;
+  int? role;
+  int? gender;
+  int? level;
+  String? nickName;
+  int? language;
+  PersonInfoCustominfo? customInfo;
+  String? selfSignature;
   dynamic allowType;
-  String faceUrl;
-  String location;
-  PersonInfoCustominfouint customInfoUint;
+  String? faceUrl;
+  String? location;
+  PersonInfoCustominfouint? customInfoUint;
 
   PersonInfoEntity(
       {this.birthday,
@@ -75,14 +75,14 @@ class PersonInfoEntity {
     data['nickName'] = this.nickName;
     data['language'] = this.language;
     if (this.customInfo != null) {
-      data['customInfo'] = this.customInfo.toJson();
+      data['customInfo'] = this.customInfo!.toJson();
     }
     data['selfSignature'] = this.selfSignature;
     data['allowType'] = this.allowType;
     data['faceUrl'] = this.faceUrl;
     data['location'] = this.location;
     if (this.customInfoUint != null) {
-      data['customInfoUint'] = this.customInfoUint.toJson();
+      data['customInfoUint'] = this.customInfoUint!.toJson();
     }
     return data;
   }

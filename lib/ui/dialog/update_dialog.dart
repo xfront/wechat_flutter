@@ -26,7 +26,7 @@ class UpdateDialog extends StatefulWidget {
 
 class UpdateDialogState extends State<UpdateDialog> {
   int _downloadProgress = 0;
-  CancelToken token;
+  late CancelToken token;
   UploadingFlag uploadingFlag = UploadingFlag.idle;
 
   @override
@@ -72,7 +72,7 @@ class UpdateDialogState extends State<UpdateDialog> {
                   !widget.isForce
                       ? Expanded(
                           flex: 1,
-                          child: FlatButton(
+                          child: MaterialButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
@@ -85,7 +85,7 @@ class UpdateDialogState extends State<UpdateDialog> {
                       : SizedBox(),
                   Expanded(
                     flex: 1,
-                    child: FlatButton(
+                    child: MaterialButton(
                         onPressed: () async {
                           if (uploadingFlag == UploadingFlag.uploading) return;
                           uploadingFlag = UploadingFlag.uploading;
@@ -136,7 +136,7 @@ class UpdateDialogState extends State<UpdateDialog> {
             });
           }
         },
-        options: Options(sendTimeout: 15 * 1000, receiveTimeout: 360 * 1000),
+        options: Options(sendTimeout: Duration(milliseconds: 15 * 1000), receiveTimeout: Duration(milliseconds:360 * 1000)),
       );
     } catch (e) {
       if (mounted) {
@@ -227,7 +227,7 @@ class UpdateDialogState extends State<UpdateDialog> {
 
   @override
   void dispose() {
-    if (!token.isCancelled) token?.cancel();
+    if (!token!.isCancelled) token?.cancel();
     super.dispose();
     debugPrint("升级销毁");
   }

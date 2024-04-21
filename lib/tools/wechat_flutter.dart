@@ -8,7 +8,7 @@ export 'package:connectivity/connectivity.dart';
 export 'package:wechat_flutter/ui/bar/commom_bar.dart';
 export 'package:wechat_flutter/config/const.dart';
 export 'package:wechat_flutter/ui/button/commom_button.dart';
-export 'package:wechat_flutter/generated/i18n.dart';
+export 'package:flutter_gen/gen_l10n/app_locales.dart';
 export 'package:wechat_flutter/ui/dialog/show_snack.dart';
 export 'package:wechat_flutter/ui/dialog/show_toast.dart';
 export 'package:wechat_flutter/ui/view/main_input.dart';
@@ -26,7 +26,9 @@ import 'dart:ui';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:dim/dim.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 Dim im = new Dim();
 
@@ -40,3 +42,7 @@ const String defGroupAvatar =
     'http://www.flutterj.com/content/uploadfile/zidingyi/g.png';
 
 const Color mainBGColor = Color.fromRGBO(240, 240, 245, 1.0);
+
+extension BuildContextExtension on BuildContext {
+  AppLocales get l10n => AppLocales.of(this);
+}

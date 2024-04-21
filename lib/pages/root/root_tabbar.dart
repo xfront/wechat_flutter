@@ -14,10 +14,10 @@ import 'package:wechat_flutter/ui/w_pop/w_popup_menu.dart';
 typedef CheckLogin(index);
 
 class RootTabBar extends StatefulWidget {
-  RootTabBar({this.pages, this.checkLogin, this.currentIndex = 0});
+  RootTabBar({required this.pages,  this.checkLogin, this.currentIndex = 0});
 
   final List pages;
-  final CheckLogin checkLogin;
+  final CheckLogin? checkLogin;
   final int currentIndex;
 
   @override
@@ -25,10 +25,10 @@ class RootTabBar extends StatefulWidget {
 }
 
 class RootTabBarState extends State<RootTabBar> {
-  var pages = new List<BottomNavigationBarItem>();
-  int currentIndex;
-  var contents = new List<Offstage>();
-  PageController pageController;
+  var pages = List<BottomNavigationBarItem>.empty(growable: true);
+  late int currentIndex;
+  var contents = List<Offstage>.empty(growable: true);
+  late PageController pageController;
 
   @override
   void initState() {
@@ -127,7 +127,7 @@ class RootTabBarState extends State<RootTabBar> {
         ),
       ),
       appBar:
-          widget.pages[currentIndex].title != S.of(context).me ? appBar : null,
+          widget.pages[currentIndex].title != context.l10n.me ? appBar : null,
       body: new ScrollConfiguration(
         behavior: MyBehavior(),
         child: new PageView.builder(
@@ -148,7 +148,7 @@ class RootTabBarState extends State<RootTabBar> {
 }
 
 class TabBarModel {
-  const TabBarModel({this.title, this.page, this.icon, this.selectIcon});
+  const TabBarModel({required this.title, required this.page, required this.icon, required this.selectIcon});
 
   final String title;
   final Widget icon;

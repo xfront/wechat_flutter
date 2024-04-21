@@ -53,9 +53,9 @@ void updateApi(BuildContext context) async {
           context: context,
           builder: (ctx2) {
             return UpdateDialog(
-              version: model.appVersion,
-              updateUrl: model.downloadUrl,
-              updateInfo: model.updateInfo,
+              version: model.appVersion!,
+              updateUrl: model.downloadUrl!,
+              updateInfo: model.updateInfo!,
             );
           });
     },

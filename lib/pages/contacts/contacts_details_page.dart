@@ -13,7 +13,7 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ContactsDetailsPage extends StatefulWidget {
-  final String avatar, title, id;
+  final String? avatar, title, id;
 
   ContactsDetailsPage({this.avatar, this.title, this.id});
 
@@ -25,10 +25,10 @@ class _ContactsDetailsPageState extends State<ContactsDetailsPage> {
   List<Widget> body(bool isSelf) {
     return [
       new ContactCard(
-        img: widget.avatar,
-        id: widget.id,
-        title: widget.title,
-        nickName: widget.title,
+        img: widget.avatar!,
+        id: widget.id!,
+        title: widget.title!,
+        nickName: widget.title!,
         area: '北京 海淀',
         isBorder: true,
       ),
@@ -75,10 +75,10 @@ class _ContactsDetailsPageState extends State<ContactsDetailsPage> {
     var rWidget = [
       new SizedBox(
         width: 60,
-        child: new FlatButton(
+        child: new MaterialButton(
           padding: EdgeInsets.all(0),
           onPressed: () =>
-              friendItemDialog(context, userId: widget.id, suCc: (v) {
+              friendItemDialog(context, userId: widget.id!, suCc: (v) {
             if (v) Navigator.of(context).maybePop();
           }),
           child: new Image.asset(contactAssets + 'ic_contacts_details.png'),

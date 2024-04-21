@@ -24,13 +24,8 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.transparent,
       ),
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
-        S.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      supportedLocales: S.delegate.supportedLocales,
+      localizationsDelegates: AppLocales.localizationsDelegates,
+      supportedLocales: AppLocales.supportedLocales,
       locale: model.currentLocale,
       routes: {
         '/': (context) {

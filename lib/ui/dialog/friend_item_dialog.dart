@@ -5,14 +5,14 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 import 'confirm_alert.dart';
 
-friendItemDialog(BuildContext context, {String userId, OnSuCc suCc}) {
+friendItemDialog(BuildContext context, {String? userId, OnSuCc? suCc}) {
   action(v) {
     Navigator.of(context).pop();
     if (v == '删除') {
       confirmAlert(
         context,
         (bool) {
-          if (bool) delFriend(userId, context, suCc: (v) => suCc(v));
+          if (bool) delFriend(userId!, context, suCc: (v) => suCc?.call(v));
         },
         tips: '你确定要删除此联系人吗',
         okBtn: '删除',
@@ -35,7 +35,7 @@ friendItemDialog(BuildContext context, {String userId, OnSuCc suCc}) {
               )
             : null,
       ),
-      child: new FlatButton(
+      child: new MaterialButton(
         color: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 15.0),
         onPressed: () => action(item),
@@ -80,7 +80,7 @@ friendItemDialog(BuildContext context, {String userId, OnSuCc suCc}) {
                     children: <Widget>[
                       new Column(children: data.map(item).toList()),
                       new HorizontalLine(color: appBarColor, height: 10.0),
-                      new FlatButton(
+                      new MaterialButton(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
                         color: Colors.white,
                         onPressed: () => Navigator.of(context).pop(),

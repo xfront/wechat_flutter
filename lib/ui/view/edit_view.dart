@@ -5,15 +5,15 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 class EditView extends StatelessWidget {
   final String label;
   final String hint;
-  final TextEditingController controller;
-  final Color bottomLineColor;
-  final FocusNode focusNode;
-  final GestureTapCallback onTap;
-  final ValueChanged<String> onChanged;
+  final TextEditingController? controller;
+  final Color? bottomLineColor;
+  final FocusNode? focusNode;
+  final GestureTapCallback? onTap;
+  final ValueChanged<String>? onChanged;
 
   EditView(
-      {this.label,
-      this.hint,
+      {required this.label,
+        required this.hint,
       this.controller,
       this.bottomLineColor,
       this.focusNode,

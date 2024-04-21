@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class MyConversationView extends StatefulWidget {
-  final String imageUrl;
-  final String title;
-  final Map content;
-  final Widget time;
+  final String? imageUrl;
+  final String? title;
+  final Map? content;
+  final Widget? time;
   final bool isBorder;
 
   MyConversationView({
@@ -36,14 +36,14 @@ class _MyConversationViewState extends State<MyConversationView> {
                 style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.normal),
               ),
               new SizedBox(height: 2.0),
-              new ContentMsg(widget?.content),
+              new ContentMsg(widget.content!),
             ],
           ),
         ),
         new Space(width: mainSpace),
         new Column(
           children: [
-            widget.time,
+            widget.time!,
             new Icon(Icons.flag, color: Colors.transparent),
           ],
         )
@@ -57,7 +57,7 @@ class _MyConversationViewState extends State<MyConversationView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           new ImageView(
-              img: widget.imageUrl,
+              img: widget.imageUrl!,
               height: 50.0,
               width: 50.0,
               fit: BoxFit.cover),

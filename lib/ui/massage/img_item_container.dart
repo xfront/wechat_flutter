@@ -6,7 +6,7 @@ class ImgItemContainer extends StatefulWidget {
   final Widget child;
   final double height;
 
-  ImgItemContainer({this.child, this.height});
+  ImgItemContainer({required this.child, required this.height});
 
   @override
   _ImgItemContainerState createState() => _ImgItemContainerState();

@@ -14,7 +14,7 @@ class GroupListPage extends StatefulWidget {
 }
 
 class _GroupListPageState extends State<GroupListPage> {
-  List _groupList = new List();
+  List _groupList = List.empty(growable: true);
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _GroupListPageState extends State<GroupListPage> {
 
   Widget groupItem(BuildContext context, String gName, String gId,
       String gFaceURL, String title) {
-    return FlatButton(
+    return MaterialButton(
       onPressed: () {
         routePush(ChatPage(
           title: gName,

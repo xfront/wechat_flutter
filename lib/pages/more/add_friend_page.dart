@@ -26,7 +26,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
   bool showBtn = false;
   bool isResult = false;
 
-  String currentUser;
+  String? currentUser;
 
   FocusNode searchF = new FocusNode();
   TextEditingController searchC = new TextEditingController();
@@ -186,16 +186,16 @@ class _AddFriendPageState extends State<AddFriendPage> {
       if (Platform.isIOS) {
         IPersonInfoEntity model = IPersonInfoEntity.fromJson(dataMap[0]);
         if (strNoEmpty(model.allowType.toString())) {
-          routePush(new AddFriendsDetails('search', model.identifier,
-              model.faceURL, model.nickname, model.gender));
+          routePush(new AddFriendsDetails('search', model.identifier!,
+              model.faceURL!, model.nickname!, model.gender!));
         } else {
           isResult = true;
         }
       } else {
         PersonInfoEntity model = PersonInfoEntity.fromJson(dataMap[0]);
         if (strNoEmpty(model.allowType)) {
-          routePush(new AddFriendsDetails('search', model.identifier,
-              model.faceUrl, model.nickName, model.gender));
+          routePush(new AddFriendsDetails('search', model.identifier!,
+              model.faceUrl!, model.nickName!, model.gender!));
         } else {
           isResult = true;
         }
@@ -258,7 +258,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
           : body(),
     );
 
-    return WillPopScope(
+    return PopScope(
       child: new Scaffold(
         backgroundColor: appBarColor,
         appBar: new ComMomBar(
@@ -268,7 +268,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
         ),
         body: bodyView,
       ),
-      onWillPop: () {
+      onPopInvoked: (pop) {
         if (isSearch) {
           unFocusMethod();
         } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:wechat_flutter/config/const.dart';
 
 class ComMomBar extends StatelessWidget implements PreferredSizeWidget {
@@ -16,18 +17,18 @@ class ComMomBar extends StatelessWidget implements PreferredSizeWidget {
 
   final String title;
   final bool showShadow;
-  final List<Widget> rightDMActions;
+  final List<Widget>? rightDMActions;
   final Color backgroundColor;
   final Color mainColor;
-  final Widget titleW;
-  final Widget leadingW;
-  final PreferredSizeWidget bottom;
+  final Widget? titleW;
+  final Widget? leadingW;
+  final PreferredSizeWidget? bottom;
   final String leadingImg;
 
   @override
   Size get preferredSize => new Size(100, 50);
 
-  Widget leading(BuildContext context) {
+  Widget? leading(BuildContext context) {
     final bool isShow = Navigator.canPop(context);
     if (isShow) {
       return new InkWell(
@@ -70,11 +71,10 @@ class ComMomBar extends StatelessWidget implements PreferredSizeWidget {
                   : titleW,
               backgroundColor: mainColor,
               elevation: 0.0,
-              brightness: Brightness.light,
               leading: leadingW ?? leading(context),
               centerTitle: true,
               actions: rightDMActions ?? [new Center()],
-              bottom: bottom != null ? bottom : null,
+              bottom: bottom != null ? bottom : null, systemOverlayStyle: SystemUiOverlayStyle.dark,
             ),
           )
         : new AppBar(
@@ -89,7 +89,6 @@ class ComMomBar extends StatelessWidget implements PreferredSizeWidget {
                 : titleW,
             backgroundColor: backgroundColor,
             elevation: 0.0,
-            brightness: Brightness.light,
             leading: leadingW ?? leading(context),
             centerTitle: false,
             bottom: bottom != null ? bottom : null,

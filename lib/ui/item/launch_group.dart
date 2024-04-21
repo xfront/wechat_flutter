@@ -17,7 +17,7 @@ class LaunchGroupItem extends StatelessWidget {
         ),
       ),
       alignment: Alignment.centerLeft,
-      child: new FlatButton(
+      child: new MaterialButton(
         color: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 15.0),
         onPressed: () {
@@ -38,12 +38,12 @@ class LaunchGroupItem extends StatelessWidget {
 }
 
 class LaunchSearch extends StatelessWidget {
-  final FocusNode searchF;
-  final TextEditingController searchC;
-  final ValueChanged<String> onChanged;
-  final GestureTapCallback onTap;
-  final ValueChanged<String> onSubmitted;
-  final GestureTapCallback delOnTap;
+  final FocusNode? searchF;
+  final TextEditingController? searchC;
+  final ValueChanged<String>? onChanged;
+  final GestureTapCallback? onTap;
+  final ValueChanged<String>? onSubmitted;
+  final GestureTapCallback? delOnTap;
 
   LaunchSearch({
     this.searchF,
@@ -79,12 +79,12 @@ class LaunchSearch extends StatelessWidget {
             onSubmitted: onSubmitted,
           ),
         ),
-        strNoEmpty(searchC.text)
+        strNoEmpty(searchC!.text)
             ? new InkWell(
                 child: new Image.asset('assets/images/ic_delete.webp'),
                 onTap: () {
-                  searchC.text = '';
-                  delOnTap();
+                  searchC!.text = '';
+                  delOnTap?.call();
                 },
               )
             : new Container()

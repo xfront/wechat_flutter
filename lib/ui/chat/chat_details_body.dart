@@ -5,8 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class ChatDetailsBody extends StatelessWidget {
-  final ScrollController sC;
-  final List<ChatData> chatData;
+  final ScrollController? sC;
+  final List<ChatData>? chatData;
 
   ChatDetailsBody({this.sC, this.chatData});
 
@@ -20,10 +20,10 @@ class ChatDetailsBody extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           reverse: true,
           itemBuilder: (context, int index) {
-            ChatData model = chatData[index];
+            ChatData model = chatData![index];
             return new SendMessageView(model);
           },
-          itemCount: chatData.length,
+          itemCount: chatData!.length,
           dragStartBehavior: DragStartBehavior.down,
         ),
       ),

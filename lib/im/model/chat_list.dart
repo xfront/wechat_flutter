@@ -12,13 +12,13 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class ChatList {
   ChatList({
-    @required this.avatar,
-    @required this.name,
-    @required this.identifier,
-    @required this.content,
-    @required this.time,
-    @required this.type,
-    @required this.msgType,
+    required this.avatar,
+    required this.name,
+    required this.identifier,
+    required this.content,
+    required this.time,
+    required this.type,
+    required this.msgType,
   });
 
   final String avatar;
@@ -38,13 +38,13 @@ class ChatListData {
   }
 
   chatListData() async {
-    List<ChatList> chatList = new List<ChatList>();
-    String avatar;
-    String name;
-    int time;
+    List<ChatList> chatList = List.empty(growable: true);
+    String avatar = "";
+    String name = '未知';
+    int time = 0;
     String identifier;
     dynamic type;
-    String msgType;
+    String msgType = "";
 
     String str = await getConversationsListData();
     String nullMap = '{"mConversation":{},"peer":"","type":"System"}';
@@ -53,49 +53,45 @@ class ChatListData {
       List<dynamic> data = json.decode(str);
       for (int i = 0; i < data.length; i++) {
         ChatListEntity model = ChatListEntity.fromJson(data[i]);
-        type = model?.type ?? 'C2C';
-        identifier = model?.peer ?? '';
+        type = model.type ?? 'C2C';
+        identifier = model.peer ?? '未知';
         try {
-          final profile = await getUsersProfile([model.peer]);
+          final profile = await getUsersProfile([model.peer ?? ""]);
           List<dynamic> profileData = json.decode(profile);
           for (int i = 0; i < profileData.length; i++) {
             if (Platform.isIOS) {
               IPersonInfoEntity info =
                   IPersonInfoEntity.fromJson(profileData[i]);
 
-              if (strNoEmpty(info?.faceURL) && info?.faceURL != '[]') {
-                avatar = info?.faceURL ?? defIcon;
+              if (strNoEmpty(info.faceURL) && info.faceURL != '[]') {
+                avatar = info.faceURL ?? defIcon;
               } else {
                 avatar = defIcon;
               }
-              name = strNoEmpty(info?.nickname)
-                  ? info?.nickname
-                  : identifier ?? '未知';
+              name = strNoEmpty(info.nickname) ? info.nickname! : identifier;
             } else {
               PersonInfoEntity info = PersonInfoEntity.fromJson(profileData[i]);
-              if (strNoEmpty(info?.faceUrl) && info?.faceUrl != '[]') {
-                avatar = info?.faceUrl ?? defIcon;
+              if (strNoEmpty(info.faceUrl) && info.faceUrl != '[]') {
+                avatar = info.faceUrl ?? defIcon;
               } else {
                 avatar = defIcon;
               }
-              name = strNoEmpty(info?.nickName)
-                  ? info?.nickName
-                  : identifier ?? '未知';
+              name = strNoEmpty(info.nickName) ? info.nickName! : identifier;
             }
           }
         } catch (e) {}
 
         final message = await getDimMessages(identifier,
             num: 1, type: type == 'C2C' ? 1 : 2);
-        List<dynamic> messageData = new List();
+        List<dynamic> messageData =  List.empty(growable: true);
 
         if (strNoEmpty(message) && !message.toString().contains('failed')) {
           messageData = json.decode(message);
         }
         if (listNoEmpty(messageData)) {
           MessageEntity messageModel = MessageEntity.fromJson(messageData[0]);
-          time = messageModel?.time ?? 0;
-          msgType = messageModel?.message?.type ?? '1';
+          time = messageModel.time ?? 0;
+          msgType = messageModel.message?.type ?? '1';
         }
         if (type == 'Group') avatar = defGroupAvatar;
         chatList.insert(
@@ -103,8 +99,8 @@ class ChatListData {
           new ChatList(
             type: type,
             identifier: identifier,
-            avatar: avatar,
-            name: name ?? '未知',
+            avatar: avatar!,
+            name: name,
             time: time ?? 0,
             content: listNoEmpty(messageData) ? messageData[0] : null,
             msgType: msgType ?? '1',

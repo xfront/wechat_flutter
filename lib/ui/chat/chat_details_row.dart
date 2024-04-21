@@ -5,13 +5,13 @@ import 'package:wechat_flutter/ui/item/chat_voice.dart';
 import 'package:flutter/material.dart';
 
 class ChatDetailsRow extends StatefulWidget {
-  final GestureTapCallback voiceOnTap;
-  final bool isVoice;
-  final LayoutWidgetBuilder edit;
-  final VoidCallback onEmojio;
-  final Widget more;
-  final String id;
-  final int type;
+  final GestureTapCallback? voiceOnTap;
+  final bool? isVoice;
+  final LayoutWidgetBuilder? edit;
+  final VoidCallback? onEmojio;
+  final Widget? more;
+  final String? id;
+  final int? type;
 
   ChatDetailsRow({
     this.voiceOnTap,
@@ -27,7 +27,7 @@ class ChatDetailsRow extends StatefulWidget {
 }
 
 class ChatDetailsRowState extends State<ChatDetailsRow> {
-  String path;
+  String? path;
 
   @override
   void initState() {
@@ -37,10 +37,10 @@ class ChatDetailsRowState extends State<ChatDetailsRow> {
       if (!v) return;
       if (!strNoEmpty(path)) return;
       sendSoundMessages(
-        widget.id,
-        path,
+        widget.id!,
+        path!,
         2,
-        widget.type,
+        widget.type!,
         (value) => Notice.send(WeChatActions.msg(), v ?? ''),
       );
     });
@@ -66,9 +66,8 @@ class ChatDetailsRowState extends State<ChatDetailsRow> {
               child: new Image.asset('assets/images/chat/ic_voice.webp',
                   width: 25, color: mainTextColor),
               onTap: () {
-                if (widget.voiceOnTap != null) {
-                  widget.voiceOnTap();
-                }
+                  widget.voiceOnTap?.call();
+
               },
             ),
             new Expanded(
@@ -78,23 +77,23 @@ class ChatDetailsRowState extends State<ChatDetailsRow> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5.0)),
-                child: widget.isVoice
+                child: widget.isVoice??false
                     ? new ChatVoice(
                   voiceFile: (path) {
                     setState(() => this.path = path);
                   },
                 )
-                    : new LayoutBuilder(builder: widget.edit),
+                    : new LayoutBuilder(builder: widget.edit!),
               ),
             ),
             new InkWell(
               child: new Image.asset('assets/images/chat/ic_Emotion.webp',
                   width: 30, fit: BoxFit.cover),
               onTap: () {
-                widget.onEmojio();
+                widget.onEmojio?.call();
               },
             ),
-            widget.more,
+            widget.more!,
           ],
         ),
       ),

@@ -48,7 +48,7 @@ class _ChatBackgroundPageState extends State<ChatBackgroundPage> {
     BuildContext context, {
     ImageSource source = ImageSource.gallery,
   }) async {
-    XFile data = await ImagePicker().pickImage(source: source);
+    XFile? data = await ImagePicker.platform.getImageFromSource(source: source);
     if (data != null) {
 //      File fileImg = data;
 //      globalModel.localAvatarImgPath = fileImg.path;

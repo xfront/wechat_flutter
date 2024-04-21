@@ -5,8 +5,8 @@
 * @param type 会话类型
 * */
 class ChatListEntity {
-  ChatListMconversation mConversation;
-  String peer;
+  ChatListMconversation? mConversation;
+  String? peer;
   dynamic type;
 
   ChatListEntity({this.mConversation, this.peer, this.type});
@@ -21,9 +21,7 @@ class ChatListEntity {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.mConversation != null) {
-      data['mConversation'] = this.mConversation.toJson();
-    }
+    data['mConversation'] = this.mConversation?.toJson();
     data['peer'] = this.peer;
     data['type'] = this.type;
     return data;

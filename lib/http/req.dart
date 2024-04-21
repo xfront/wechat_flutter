@@ -9,7 +9,7 @@ typedef OnError(String msg, int code);
 enum RequestType { GET, POST }
 
 class Req {
-  static Req _instance;
+  static Req? _instance;
 
   ///连接超时时间为5秒
   static const int connectTimeOut = 5 * 1000;
@@ -17,22 +17,20 @@ class Req {
   ///响应超时时间为7秒
   static const int receiveTimeOut = 7 * 1000;
 
-  Dio _client;
+  late Dio _client;
 
   static Req getInstance() {
     if (_instance == null) {
       _instance = Req._internal();
     }
-    return _instance;
+    return _instance!;
   }
 
   Req._internal() {
-    if (_client == null) {
-      BaseOptions options = new BaseOptions();
-      options.connectTimeout = connectTimeOut;
-      options.receiveTimeout = receiveTimeOut;
-      _client = new Dio(options);
-    }
+    BaseOptions options = new BaseOptions();
+    options.connectTimeout = Duration(milliseconds: connectTimeOut);
+    options.receiveTimeout = Duration(milliseconds: receiveTimeOut);
+    _client = new Dio(options);
   }
 
   Dio get client => _client;
@@ -41,9 +39,9 @@ class Req {
   void get(
     String url,
     OnData callBack, {
-    Map<String, String> params,
-    OnError errorCallBack,
-    CancelToken token,
+    Map<String, String>? params,
+    OnError? errorCallBack,
+    CancelToken? token,
   }) async {
     this._request(
       url,
@@ -59,9 +57,9 @@ class Req {
   void post(
     String url,
     OnData callBack, {
-    Map<String, String> params,
-    OnError errorCallBack,
-    CancelToken token,
+    Map<String, String>? params,
+    OnError? errorCallBack,
+    CancelToken? token,
   }) async {
     this._request(
       url,
@@ -78,9 +76,9 @@ class Req {
     String url,
     OnData callBack,
     ProgressCallback progressCallBack, {
-    FormData formData,
-    OnError errorCallBack,
-    CancelToken token,
+    FormData? formData,
+    OnError? errorCallBack,
+    CancelToken? token,
   }) async {
     this._request(
       url,
@@ -96,15 +94,15 @@ class Req {
   void _request(
     String url,
     OnData callBack, {
-    RequestType method,
-    Map<String, String> params,
-    FormData formData,
-    OnError errorCallBack,
-    ProgressCallback progressCallBack,
-    CancelToken token,
+    RequestType? method,
+    Map<String, String>? params,
+    FormData? formData,
+    OnError? errorCallBack,
+    ProgressCallback? progressCallBack,
+    CancelToken? token,
   }) async {
     final id = _id++;
-    int statusCode;
+    int? statusCode;
     try {
       Response response;
       if (method == RequestType.GET) {
@@ -144,17 +142,17 @@ class Req {
       }
 
       ///处理错误部分
-      if (statusCode < 0) {
+      if (statusCode != null && statusCode < 0) {
         _handError(errorCallBack, statusCode);
         return;
       }
     } catch (e) {
-      _handError(errorCallBack, statusCode);
+      _handError(errorCallBack, statusCode ?? -1);
     }
   }
 
   ///处理异常
-  static void _handError(OnError errorCallback, int statusCode) {
+  static void _handError(OnError? errorCallback, int statusCode) {
     String errorMsg = 'Network request error';
     if (errorCallback != null) {
       errorCallback(errorMsg, statusCode);

@@ -46,7 +46,7 @@ class _SelectBgPageState extends State<SelectBgPage> {
           runSpacing: 10.0,
           spacing: 10.0,
           children:
-              listNoEmpty(data) ? data.map(buildBg).toList() : new Container(),
+              listNoEmpty(data) ? data.map(buildBg).toList() : <Widget>[],
         ),
       ),
     );

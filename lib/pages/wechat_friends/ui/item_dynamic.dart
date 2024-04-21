@@ -10,11 +10,11 @@ import 'load_view.dart';
 class ItemDynamic extends StatelessWidget {
   final FriendsDynamic dynamic;
 
-  ItemDynamic(this.dynamic, {Key key}) : super(key: key);
+  ItemDynamic(this.dynamic, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int imageSize = this.dynamic.images.length;
+    int imageSize = this.dynamic.images?.length??0;
 
     double imageWidth = (winWidth(context) - 20 - 50 - 10) /
         ((imageSize == 3 || imageSize > 4)
@@ -23,7 +23,7 @@ class ItemDynamic extends StatelessWidget {
 
     double videoWidth = (winWidth(context) - 20 - 50 - 10) / 2.2;
 
-    String desc = this.dynamic.desc;
+    String desc = this.dynamic.desc??"";
 
     String def =
         'https://c-ssl.duitang.com/uploads/item/201803/04/20180304085215_WGFx8.thumb.700_0.jpeg';
@@ -76,7 +76,7 @@ class ItemDynamic extends StatelessWidget {
                                             childAspectRatio: 1),
                                     itemBuilder: (context, index) =>
                                         ImageLoadView(
-                                          '${this.dynamic.images.isNotEmpty ? this.dynamic.images[index].image : def}',
+                                          '${this.dynamic.images?.isNotEmpty??false ? this.dynamic.images![index].image : def}',
                                           fit: BoxFit.cover,
                                           width: imageWidth,
                                           height: imageWidth,
@@ -132,7 +132,7 @@ class ItemDynamic extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.grey[500], fontSize: 13)),
                                 Offstage(
-                                    offstage: !this.dynamic.isSelf,
+                                    offstage: !this.dynamic.isSelf!,
                                     child: Padding(
                                         padding: EdgeInsets.only(left: 10.0),
                                         child: Text('删除',
@@ -179,13 +179,13 @@ class _TestPushState extends State<TestPush> {
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new FlatButton(
+            child: new MaterialButton(
               onPressed: () {},
               child: new Text('赞', style: labelStyle),
             ),
           ),
           new Expanded(
-            child: new FlatButton(
+            child: new MaterialButton(
               onPressed: () {},
               child: new Text('评论', style: labelStyle),
             ),

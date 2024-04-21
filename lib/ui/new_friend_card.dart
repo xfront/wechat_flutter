@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class NewFriendCard extends StatelessWidget {
-  final String name, img;
+  final String? name, img;
   final bool isAdd;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   NewFriendCard({this.name, this.img, this.isAdd = false, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return new FlatButton(
+    return new MaterialButton(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       onPressed: () {},
       child: new Row(
         children: <Widget>[
-          new ImageView(img: img, width: 45.0, height: 45.0, fit: BoxFit.cover),
+          new ImageView(img: img!, width: 45.0, height: 45.0, fit: BoxFit.cover),
           new Space(width: mainSpace),
           new Container(
             width: winWidth(context) - 95,
@@ -58,7 +58,7 @@ class NewFriendCard extends StatelessWidget {
                         style: TextStyle(color: Colors.green),
                         onTap: () {
                           if (onTap != null) {
-                            onTap();
+                            onTap?.call();
                           }
                         },
                       )

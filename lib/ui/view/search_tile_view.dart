@@ -5,13 +5,13 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 class SearchTileView extends StatelessWidget {
   final String text;
   final int type;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   SearchTileView(this.text, {this.type = 0, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    var bt = new FlatButton(
+    var bt = new MaterialButton(
       onPressed: onPressed ?? () {},
       child: new Row(
         children: <Widget>[
@@ -82,7 +82,7 @@ class SearchTileView extends StatelessWidget {
         ),
         width: winWidth(context),
         height: 65.0,
-        child: new FlatButton(
+        child: new MaterialButton(
           onPressed: () {},
           child: row,
         ),

@@ -21,7 +21,7 @@ class _CodePageState extends State<CodePage> {
     var rWidget = [
       new SizedBox(
         width: 60,
-        child: new FlatButton(
+        child: new MaterialButton(
           padding: EdgeInsets.all(0),
           onPressed: () => codeDialog(
             context,
@@ -85,7 +85,7 @@ class _CodePageState extends State<CodePage> {
 }
 
 class CardPerson extends StatelessWidget {
-  final String name, icon, area, groupName;
+  final String? name, icon, area, groupName;
 
   CardPerson({this.name, this.icon, this.area, this.groupName});
 

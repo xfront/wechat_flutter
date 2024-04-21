@@ -21,17 +21,17 @@ class SoundMsg extends StatefulWidget {
 }
 
 class _SoundMsgState extends State<SoundMsg> with TickerProviderStateMixin {
-  Duration duration;
-  Duration position;
+  late Duration duration;
+  late Duration position;
 
-  AnimationController controller;
-  Animation animation;
-  FlutterSound flutterSound;
-  AudioPlayer audioPlayer = AudioPlayer();
+  late AnimationController controller;
+  late Animation animation;
+  late FlutterSound flutterSound;
+   AudioPlayer audioPlayer = AudioPlayer();
 
-  StreamSubscription _positionSubscription;
-  StreamSubscription _audioPlayerStateSubscription;
-  StreamSubscription _playerSubscription;
+  late StreamSubscription _positionSubscription;
+  late StreamSubscription _audioPlayerStateSubscription;
+  late StreamSubscription _playerSubscription;
 
   double sliderCurrentPosition = 0.0;
   double maxDuration = 1.0;
@@ -53,7 +53,7 @@ class _SoundMsgState extends State<SoundMsg> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 1000), vsync: this);
     final Animation curve =
         CurvedAnimation(parent: controller, curve: Curves.easeOut);
-    animation = IntTween(begin: 0, end: 3).animate(curve)
+    animation = IntTween(begin: 0, end: 3).animate(controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           controller.reverse();
@@ -107,12 +107,10 @@ class _SoundMsgState extends State<SoundMsg> with TickerProviderStateMixin {
   }
 
   playNew(url) async {
-    int result = await audioPlayer.play(url);
-    if (result == 1) {
+    await audioPlayer.play(url);
+
       showToast(context, '播放中');
-    } else {
-      showToast(context, '播放出问题了');
-    }
+
   }
 
   @override
@@ -144,13 +142,13 @@ class _SoundMsgState extends State<SoundMsg> with TickerProviderStateMixin {
     bool isIos = Platform.isIOS;
     if (!listNoEmpty(isIos ? iModel.soundUrls : model.urls)) return Container();
 
-    var urls = isIos ? iModel.soundUrls[0] : model.urls[0];
+    var urls = isIos ? iModel.soundUrls![0] : model.urls![0];
     var body = [
       new MsgAvatar(model: widget.model, globalModel: globalModel),
       new Container(
         width: 100.0,
         padding: EdgeInsets.only(right: 10.0),
-        child: new FlatButton(
+        child: new MaterialButton(
           padding: EdgeInsets.only(left: 18.0, right: 4.0),
           child: new Row(
             mainAxisAlignment:

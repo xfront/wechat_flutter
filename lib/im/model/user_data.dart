@@ -11,10 +11,10 @@ import 'package:dim/pinyin/pinyin_helper.dart';
 
 class UserData {
   UserData({
-    @required this.avatar,
-    @required this.name,
-    @required this.identifier,
-    @required this.isAdd,
+    required this.avatar,
+    required this.name,
+    required this.identifier,
+    required this.isAdd,
   });
 
   final String avatar;
@@ -66,7 +66,7 @@ class UserDataPageGet {
   ];
 
   listUserData() async {
-    List<UserData> userData = new List<UserData>();
+    List<UserData> userData =  List.empty(growable: true);
     for (int i = 0; i < ids.length; i++) {
       final profile = await getUsersProfile([ids[i]]);
       List<dynamic> profileData = json.decode(profile);
@@ -76,28 +76,28 @@ class UserDataPageGet {
         String identifier;
         if (Platform.isIOS) {
           IPersonInfoEntity info = IPersonInfoEntity.fromJson(profileData[i]);
-          identifier = info.identifier;
-          if (strNoEmpty(info?.faceURL) && info?.faceURL != '[]') {
-            avatar = info?.faceURL ?? defIcon;
+          identifier = info.identifier??"";
+          if (strNoEmpty(info.faceURL) && info?.faceURL != '[]') {
+            avatar = info.faceURL ?? defIcon;
           } else {
             avatar = defIcon;
           }
           name =
-              strNoEmpty(info?.nickname) ? info?.nickname : identifier ?? '未知';
+              strNoEmpty(info.nickname) ? info.nickname! : identifier ?? '未知';
         } else {
           PersonInfoEntity info = PersonInfoEntity.fromJson(profileData[i]);
-          identifier = info.identifier;
-          if (strNoEmpty(info?.faceUrl) && info?.faceUrl != '[]') {
-            avatar = info?.faceUrl ?? defIcon;
+          identifier = info.identifier??"";
+          if (strNoEmpty(info.faceUrl) && info.faceUrl != '[]') {
+            avatar = info.faceUrl ?? defIcon;
           } else {
             avatar = defIcon;
           }
           name =
-              strNoEmpty(info?.nickName) ? info?.nickName : identifier ?? '未知';
+              strNoEmpty(info.nickName) ? info.nickName! : identifier ?? '未知';
         }
 
         final user = await SharedUtil.instance.getString(Keys.account);
-        final result = await getContactsFriends(user);
+        final result = await getContactsFriends(user??"");
         userData.insert(
           0,
           new UserData(

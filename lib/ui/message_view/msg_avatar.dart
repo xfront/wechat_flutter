@@ -14,16 +14,16 @@ class MsgAvatar extends StatefulWidget {
   final ChatData model;
 
   MsgAvatar({
-    @required this.globalModel,
-    @required this.model,
+    required this.globalModel,
+    required this.model,
   });
 
   _MsgAvatarState createState() => _MsgAvatarState();
 }
 
 class _MsgAvatarState extends State<MsgAvatar> with TickerProviderStateMixin {
-  Animation<double> animation;
-  AnimationController controller;
+  late Animation<double> animation;
+  late AnimationController controller;
 
   @override
   initState() {
@@ -55,9 +55,9 @@ class _MsgAvatarState extends State<MsgAvatar> with TickerProviderStateMixin {
           ),
           margin: EdgeInsets.only(right: 10.0),
           child: new ImageView(
-            img: widget.model.id == widget.globalModel.account
+            img: widget.model.id! == widget.globalModel.account!
                 ? widget.globalModel.avatar ?? defIcon
-                : widget.model.avatar,
+                : widget.model.avatar!,
             height: 35,
             width: 35,
             fit: BoxFit.cover,
@@ -87,13 +87,13 @@ class AnimateWidget extends AnimatedWidget {
   final Widget child;
 
   AnimateWidget({
-    Animation<double> animation,
-    this.child,
+    required Animation<double> animation,
+    required this.child,
   }) : super(listenable: animation);
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double> animation = listenable;
+    final Animation<double> animation = listenable as Animation<double>;
     var result = Transform(
       transform: Matrix4.rotationZ(animation.value * pi / 180),
       alignment: Alignment.bottomCenter,

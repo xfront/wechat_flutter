@@ -22,17 +22,18 @@ class _NewFriendPageState extends State<NewFriendPage> {
   bool showBtn = false;
   bool isResult = false;
 
-  String currentUser;
+  String? currentUser;
 
   FocusNode searchF = new FocusNode();
   TextEditingController searchC = new TextEditingController();
 
   Widget buildItem(item) {
+    var title= item['title'];
     return new ListTileView(
-      border: item['title'] == '雷达加朋友'
+      border: title == '雷达加朋友'
           ? null
           : Border(top: BorderSide(color: lineColor, width: 0.2)),
-      title: item['title'],
+      title: title,
       label: item['label'],
     );
   }
@@ -186,12 +187,12 @@ class _NewFriendPageState extends State<NewFriendPage> {
           : body(),
     );
 
-    var rWidget = new FlatButton(
+    var rWidget = new MaterialButton(
       onPressed: () => routePush(new AddFriendPage()),
       child: new Text('添加朋友'),
     );
 
-    return WillPopScope(
+    return PopScope(
       child: new Scaffold(
         backgroundColor: appBarColor,
         appBar: new ComMomBar(
@@ -202,7 +203,7 @@ class _NewFriendPageState extends State<NewFriendPage> {
         ),
         body: bodyView,
       ),
-      onWillPop: () {
+      onPopInvoked: (show) {
         if (isSearch) {
           unFocusMethod();
         } else {

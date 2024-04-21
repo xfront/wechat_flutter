@@ -13,16 +13,16 @@
 *
 * */
 class IChatPersonEntity {
-  int birthday;
-  String faceURL;
-  String identifier;
-  int role;
-  int gender;
-  int level;
-  String nickname;
-  int language;
-  IChatPersonCustominfo customInfo;
-  dynamic allowType;
+  int? birthday;
+  String? faceURL;
+  String? identifier;
+  int? role;
+  int? gender;
+  int? level;
+  String? nickname;
+  int? language;
+  IChatPersonCustominfo? customInfo;
+  dynamic? allowType;
 
   IChatPersonEntity(
       {this.birthday,
@@ -62,7 +62,7 @@ class IChatPersonEntity {
     data['nickname'] = this.nickname;
     data['language'] = this.language;
     if (this.customInfo != null) {
-      data['customInfo'] = this.customInfo.toJson();
+      data['customInfo'] = this.customInfo!.toJson();
     }
     data['allowType'] = this.allowType;
     return data;

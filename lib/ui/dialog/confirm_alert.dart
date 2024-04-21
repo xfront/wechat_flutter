@@ -5,14 +5,14 @@ import 'package:wechat_flutter/ui/flutter/my_cupertino_dialog.dart';
 void confirmAlert<T>(
   BuildContext context,
   VoidCallbackConfirm callBack, {
-  int type,
-  String tips,
-  String okBtn,
-  String cancelBtn,
-  TextStyle okBtnStyle,
-  TextStyle style,
+  int? type,
+  String? tips,
+  String? okBtn,
+  String? cancelBtn,
+  TextStyle? okBtnStyle,
+  TextStyle? style,
   bool isWarm = false,
-  String warmStr,
+  String? warmStr,
 }) {
   showDialog<T>(
     context: context,
@@ -76,5 +76,5 @@ void confirmAlert<T>(
         ],
       );
     },
-  ).then<void>((T value) {});
+  ).then<void>((T? value) {});
 }

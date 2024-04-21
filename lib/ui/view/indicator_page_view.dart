@@ -6,7 +6,7 @@ class IndicatorPageView extends StatefulWidget {
   final PageController pageC;
   final List<Widget> pages;
 
-  IndicatorPageView({this.pageC, this.pages});
+  IndicatorPageView({required this.pageC, required this.pages});
 
   IndicatorPageViewState createState() => IndicatorPageViewState();
 }
@@ -63,12 +63,11 @@ class IndicatorPageViewState extends State<IndicatorPageView> {
 
 class MyBehavior extends ScrollBehavior {
   @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
+  Widget buildScrollbar(BuildContext context, Widget child, ScrollableDetails details) {
     if (Platform.isAndroid || Platform.isFuchsia) {
       return child;
     } else {
-      return super.buildViewportChrome(context, child, axisDirection);
+      return super.buildScrollbar(context, child, details);
     }
   }
 }

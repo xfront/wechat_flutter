@@ -19,7 +19,7 @@ class _ChangeNamePageState extends State<ChangeNamePage> {
   TextEditingController _tc = new TextEditingController();
   FocusNode _f = new FocusNode();
 
-  String initContent;
+  late String initContent;
 
   void setInfoMethod(GlobalModel model) {
     if (!strNoEmpty(_tc.text)) {

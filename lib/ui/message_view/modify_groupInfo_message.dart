@@ -13,8 +13,8 @@ class ModifyGroupInfoMessage extends StatefulWidget {
 }
 
 class ModifyGroupInfoMessageState extends State<ModifyGroupInfoMessage> {
-  String name;
-  List membersData;
+  late String name;
+  late List membersData;
 
   @override
   void initState() {

@@ -20,7 +20,7 @@ import 'package:wechat_flutter/ui/view/indicator_page_view.dart';
 
 class GroupDetailsPage extends StatefulWidget {
   final String peer;
-  final Callback callBack;
+  final Callback? callBack;
 
   GroupDetailsPage(this.peer, {this.callBack});
 
@@ -41,9 +41,9 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
   /// 是否免打扰
   bool _dnd = false;
 
-  String groupName;
-  String groupNotification;
-  String time;
+  String? groupName;
+  String? groupNotification;
+  String? time;
   String cardName = '默认';
 
   /// 是否群的创建者
@@ -54,7 +54,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
     {'user': '+'},
 //    {'user': '-'}
   ];
-  List dataGroup;
+  List? dataGroup;
 
   @override
   void initState() {
@@ -76,13 +76,13 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
     DimGroup.getGroupInfoListModel([widget.peer], callback: (result) async {
       dataGroup = json.decode(result.toString().replaceAll("'", '"'));
       final user = await SharedUtil.instance.getString(Keys.account);
-      isGroupOwner = dataGroup[0]['groupOwner'] == user;
-      groupName = dataGroup[0]['groupName'].toString();
-      String notice = strNoEmpty(dataGroup[0]['groupNotification'].toString())
-          ? dataGroup[0]['groupNotification'].toString()
+      isGroupOwner = dataGroup![0]['groupOwner'] == user;
+      groupName = dataGroup![0]['groupName'].toString();
+      String notice = strNoEmpty(dataGroup![0]['groupNotification'].toString())
+          ? dataGroup![0]['groupNotification'].toString()
           : '暂无公告';
       groupNotification = notice;
-      time = dataGroup[0]['groupIntroduction'].toString();
+      time = dataGroup![0]['groupIntroduction'].toString();
       setState(() {});
     });
   }
@@ -100,9 +100,9 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
   /// 成员item的UI序列渲染
   Widget memberItem(item) {
     List<dynamic> userInfo;
-    String uId;
+    String uId = '';
     String uFace = '';
-    String nickName;
+    String nickName = '';
 
     /// "+" 和 "-"
     if (item['user'] == "+" || item['user'] == '-') {
@@ -130,7 +130,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
       builder: (context, snap) {
         return new SizedBox(
           width: (winWidth(context) - 60) / 5,
-          child: FlatButton(
+          child: MaterialButton(
             onPressed: () =>
                 routePush(GroupMemberDetails(Data.user() == uId, uId)),
             padding: EdgeInsets.all(0),
@@ -187,7 +187,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
 
     return Scaffold(
       backgroundColor: Color(0xffEDEDED),
-      appBar: new ComMomBar(title: '聊天信息 (${dataGroup[0]['memberNum']})'),
+      appBar: new ComMomBar(title: '聊天信息 (${dataGroup![0]['memberNum']})'),
       body: new ScrollConfiguration(
         behavior: MyBehavior(),
         child: new ListView(
@@ -204,7 +204,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
             ),
             new Visibility(
               visible: memberList.length > 20,
-              child: new FlatButton(
+              child: new MaterialButton(
                 padding: EdgeInsets.only(top: 15.0, bottom: 20.0),
                 color: Colors.white,
                 child: new Text(
@@ -282,7 +282,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
             new Space(),
             functionBtn('清空聊天记录'),
             new Space(),
-            FlatButton(
+            MaterialButton(
               padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
               color: Colors.white,
               onPressed: () {
@@ -344,7 +344,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
         routePush(
           new GroupRemarksPage(
             groupInfoType: GroupInfoType.name,
-            text: groupName,
+            text: groupName!,
             groupId: widget.peer,
           ),
         ).then((data) {
@@ -358,8 +358,8 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
       case '群公告':
         routePush(
           new GroupBillBoardPage(
-            dataGroup[0]['groupOwner'],
-            groupNotification,
+            dataGroup![0]['groupOwner'],
+            groupNotification!,
             groupId: widget.peer,
             time: time,
             callback: (timeData) => time = timeData,
@@ -417,11 +417,11 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
   * */
   functionBtn(
     title, {
-    final String detail,
-    final Widget right,
+    final String? detail,
+    final Widget? right,
   }) {
     return GroupItem(
-      detail: detail,
+      detail: detail??'',
       title: title,
       right: right,
       onPressed: () => handle(title),
@@ -430,10 +430,10 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
 }
 
 class GroupItem extends StatelessWidget {
-  final String detail;
-  final String title;
-  final VoidCallback onPressed;
-  final Widget right;
+  final String? detail;
+  final String? title;
+  final VoidCallback? onPressed;
+  final Widget? right;
 
   GroupItem({
     this.detail,
@@ -447,9 +447,9 @@ class GroupItem extends StatelessWidget {
     if (detail == null && detail == '') {
       return new Container();
     }
-    double widthT() {
+    double? widthT() {
       if (detail != null) {
-        return detail.length > 35 ? SizeConfig.blockSizeHorizontal * 60 : null;
+        return detail!.length > 35 ? SizeConfig.blockSizeHorizontal! * 60 : null;
       } else {
         return null;
       }
@@ -466,10 +466,10 @@ class GroupItem extends StatelessWidget {
         title == '投诉' ||
         title == '清空聊天记录';
 
-    return FlatButton(
+    return MaterialButton(
       padding: EdgeInsets.only(left: 15, right: 15.0),
       color: Colors.white,
-      onPressed: () => onPressed(),
+      onPressed: () => onPressed?.call(),
       child: new Container(
         padding: EdgeInsets.only(
           top: isSwitch ? 10 : 15.0,
@@ -486,7 +486,7 @@ class GroupItem extends StatelessWidget {
             new Row(
               children: <Widget>[
                 new Expanded(
-                  child: Text(title),
+                  child: Text(title!),
                 ),
                 new Visibility(
                   visible: title != '群公告',
@@ -499,7 +499,7 @@ class GroupItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                right != null ? right : new Container(),
+                right != null ? right! : new Container(),
                 new Space(width: 10.0),
                 isSwitch
                     ? Container()

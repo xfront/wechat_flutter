@@ -4,7 +4,7 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 typedef OnSuCc = void Function(bool v);
 
 Future<dynamic> addFriend(String userName, BuildContext context,
-    {OnSuCc suCc}) async {
+    {OnSuCc? suCc}) async {
   try {
     var result = await im.addFriend(userName);
     if (result.toString().contains('Friend_Exist')) {
@@ -29,7 +29,7 @@ Future<dynamic> addFriend(String userName, BuildContext context,
 }
 
 Future<dynamic> delFriend(String userName, BuildContext context,
-    {OnSuCc suCc}) async {
+    {OnSuCc? suCc}) async {
   try {
     var result = await im.delFriend(userName);
     if (result.toString().contains('ucc')) {
@@ -60,10 +60,10 @@ Future<dynamic> getContactsFriends(String userName) async {
 }
 
 Future<dynamic> createGroupChat(List<String> personList,
-    {String name, Callback callback}) async {
+    {String? name, Callback? callback}) async {
   try {
-    var result = await im.createGroupChat(name: name, personList: personList);
-    callback(result);
+    var result = await im.createGroupChat(name: name??"", personList: personList);
+    callback?.call(result);
   } on PlatformException {
     print('创建群组  失败');
   }

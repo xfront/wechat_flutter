@@ -15,7 +15,7 @@ class SelectMembersPage extends StatefulWidget {
 }
 
 class _SelectMembersPageState extends State<SelectMembersPage> {
-  List<ContactInfoModel> _contacts = List();
+  List<ContactInfoModel> _contacts = List.empty(growable: true);
 
   int _suspensionHeight = 30;
   int _itemHeight = 60;
@@ -169,71 +169,15 @@ class _SelectMembersPageState extends State<SelectMembersPage> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: AzListView(
-        data: _contacts,
-        itemBuilder: (context, model) => _buildListItem(model),
-        isUseRealIndex: true,
-        itemHeight: _itemHeight,
-        suspensionHeight: _suspensionHeight,
-        header: AzListViewHeader(
-          height: _headHeight.toInt(),
-          builder: (context) {
-            String uFace = '';
-
-            if (!listNoEmpty(selects)) {
-              return new Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: new Row(
-                  children: <Widget>[
-                    new Icon(
-                      CupertinoIcons.search,
-                      color: Colors.grey,
-                    ),
-                    new Space(),
-                  ],
-                ),
-              );
-            }
-            return new ListView(
-              scrollDirection: Axis.horizontal,
-              children: selects.map((item) {
-                return new UnconstrainedBox(
-                  child: new Container(
-                    margin: EdgeInsets.only(left: 10),
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: new ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      child: !strNoEmpty(uFace)
-                          ? new Image.asset(
-                        defIcon,
-                        height: 48.0,
-                        width: 48.0,
-                        fit: BoxFit.cover,
-                      )
-                          : CachedNetworkImage(
-                        imageUrl: uFace,
-                        height: 48.0,
-                        width: 48.0,
-                        cacheManager: cacheManager,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            );
-          },
-        ),
-      ),
     );
   }
 }
 
 class ContactInfoModel extends ISuspensionBean {
-  String name;
-  String tagIndex;
-  String namePinyin;
-  bool isSelect;
+  String name = 'aTest';
+  String tagIndex= 'A';
+  String namePinyin= 'A';
+  bool isSelect= false;
 
   ContactInfoModel({
     this.name = 'aTest',

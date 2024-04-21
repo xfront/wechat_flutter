@@ -10,10 +10,10 @@ class ImageLoadView extends StatelessWidget {
   final String path;
 
   /// 宽
-  final double width;
+  final double? width;
 
   /// 高
-  final double height;
+  final double? height;
 
   /// 填充效果
   final BoxFit fit;
@@ -23,11 +23,11 @@ class ImageLoadView extends StatelessWidget {
 
   ImageLoadView(
     this.path, {
-    Key key,
+    Key? key,
     this.width,
     this.height,
-    this.fit: BoxFit.fill,
-    this.borderRadius: const BorderRadius.all(Radius.circular(0.0)),
+    this.fit= BoxFit.fill,
+    this.borderRadius= const BorderRadius.all(Radius.circular(0.0)),
   }) : assert(path != null);
 
   @override

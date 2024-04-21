@@ -10,10 +10,10 @@ import 'package:dim/pinyin/pinyin_helper.dart';
 
 class Contact {
   Contact({
-    @required this.avatar,
-    @required this.name,
-    @required this.nameIndex,
-    @required this.identifier,
+    required this.avatar,
+    required this.name,
+    required this.nameIndex,
+    required this.identifier,
   });
 
   final String avatar;
@@ -25,13 +25,13 @@ class Contact {
 class ContactsPageData {
   Future<bool> contactIsNull() async {
     final user = await SharedUtil.instance.getString(Keys.account);
-    final result = await getContactsFriends(user);
+    final result = await getContactsFriends(user??"");
     List<dynamic> data = json.decode(result);
     return !listNoEmpty(data);
   }
 
   listFriend() async {
-    List<Contact> contacts = new List<Contact>();
+    List<Contact> contacts = List.empty(growable: true);
     String avatar;
     String nickName;
     String identifier;
@@ -39,7 +39,7 @@ class ContactsPageData {
 
     final contactsData = await SharedUtil.instance.getString(Keys.contacts);
     final user = await SharedUtil.instance.getString(Keys.account);
-    var result = await getContactsFriends(user);
+    var result = await getContactsFriends(user??"");
 
     getMethod(result) async {
       if (!listNoEmpty(result)) return contacts;
@@ -48,11 +48,11 @@ class ContactsPageData {
       for (int i = 0; i < dLength; i++) {
         if (Platform.isIOS) {
           IContactInfoEntity model = IContactInfoEntity.fromJson(dataMap[i]);
-          avatar = model.profile.faceURL;
-          identifier = model.identifier;
-          remark = await getRemarkMethod(model.identifier, callback: (_) {});
-          nickName = model.profile.nickname;
-          nickName = !strNoEmpty(nickName) ? model.identifier : nickName;
+          avatar = model.profile?.faceURL??defIcon;
+          identifier = model.identifier??"";
+          remark = await getRemarkMethod(identifier, callback: (_) {});
+          nickName = model.profile?.nickname??"";
+          nickName = !strNoEmpty(nickName) ? identifier : nickName;
           contacts.insert(
             0,
             new Contact(
@@ -65,11 +65,11 @@ class ContactsPageData {
           );
         } else {
           PersonInfoEntity model = PersonInfoEntity.fromJson(dataMap[i]);
-          avatar = model.faceUrl;
-          identifier = model.identifier;
-          remark = await getRemarkMethod(model.identifier, callback: (_) {});
-          nickName = model.nickName;
-          nickName = !strNoEmpty(nickName) ? model.identifier : nickName;
+          avatar = model.faceUrl??"";
+          identifier = model.identifier??"";
+          remark = await getRemarkMethod(identifier, callback: (_) {});
+          nickName = model.nickName??"";
+          nickName = !strNoEmpty(nickName) ? identifier : nickName;
           contacts.insert(
             0,
             new Contact(

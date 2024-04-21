@@ -12,7 +12,7 @@ class _SetRemarkPageState extends State<SetRemarkPage> {
   TextEditingController _tc = new TextEditingController();
   FocusNode _f = new FocusNode();
 
-  String initContent;
+  String? initContent;
 
   Widget body() {
     return new SingleChildScrollView(
@@ -20,7 +20,7 @@ class _SetRemarkPageState extends State<SetRemarkPage> {
         children: [
           new TipVerifyInput(
             title: '备注',
-            defStr: initContent,
+            defStr: initContent??"",
             controller: _tc,
             focusNode: _f,
             color: appBarColor,

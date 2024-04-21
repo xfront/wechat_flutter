@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class ListTileView extends StatelessWidget {
-  final BoxBorder border;
-  final VoidCallback onPressed;
-  final String title;
-  final String label;
+  final BoxBorder? border;
+  final VoidCallback? onPressed;
+  final String? title;
+  final String? label;
   final String icon;
-  final double width;
-  final double horizontal;
-  final TextStyle titleStyle;
+  final double? width;
+  final double? horizontal;
+  final TextStyle? titleStyle;
   final bool isLabel;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry margin;
-  final BoxFit fit;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final BoxFit? fit;
 
   ListTileView({
     this.border,
@@ -47,7 +47,7 @@ class ListTileView extends StatelessWidget {
     );
 
     var view = [
-      isLabel ? text : new Text(title, style: titleStyle),
+      isLabel ? text : new Text(title!, style: titleStyle),
       new Spacer(),
       new Container(
         width: 7.0,
@@ -63,8 +63,8 @@ class ListTileView extends StatelessWidget {
     var row = new Row(
       children: <Widget>[
         new Container(
-          width: width - 5,
-          margin: EdgeInsets.symmetric(horizontal: horizontal),
+          width: width! - 5,
+          margin: EdgeInsets.symmetric(horizontal: horizontal!),
           child:
               new ImageView(img: icon, width: width, fit: fit),
         ),
@@ -79,7 +79,7 @@ class ListTileView extends StatelessWidget {
 
     return new Container(
       margin: margin,
-      child: new FlatButton(
+      child: new MaterialButton(
         color: Colors.white,
         padding: EdgeInsets.all(0),
         onPressed: onPressed ?? () {},

@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:wechat_flutter/im/all_im.dart';
 
 class ChatData {
-  final Map msg;
-  final String id;
-  final int time;
-  final String nickName;
-  final String avatar;
+  final Map<String, dynamic> msg;
+  final String? id;
+  final int? time;
+  final String? nickName;
+  final String? avatar;
 
   ChatData({
-    @required this.msg,
+    required this.msg,
     this.avatar,
     this.time,
     this.nickName,
@@ -26,7 +26,7 @@ class ChatData {
 
 class ChatDataRep {
   repData(String id, int type) async {
-    List<ChatData> chatData = new List<ChatData>();
+    List<ChatData> chatData = List.empty(growable: true);
     final chatMsgData = await getDimMessages(id, type: type);
     if (Platform.isAndroid) {
       List chatMsgDataList = json.decode(chatMsgData);

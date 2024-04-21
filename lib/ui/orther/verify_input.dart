@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class VerifyInput extends StatefulWidget {
-  final String title;
+  final String? title;
   final String defStr;
-  final TextEditingController controller;
-  final FocusNode focusNode;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   VerifyInput({this.title, this.controller, this.defStr = '', this.focusNode});
 
@@ -18,7 +18,7 @@ class _VerifyInputState extends State<VerifyInput> {
   @override
   void initState() {
     super.initState();
-    widget.controller.text = widget.defStr;
+    widget.controller?.text = widget.defStr;
   }
 
   Widget contentBuild() {
@@ -33,21 +33,21 @@ class _VerifyInputState extends State<VerifyInput> {
           },
           onTap: () => setState(() {}),
           style: TextStyle(
-            color: widget.focusNode.hasFocus ? Colors.black : Colors.grey,
+            color: widget.focusNode?.hasFocus??false ? Colors.black : Colors.grey,
             textBaseline: TextBaseline.alphabetic,
           ),
         ),
       ),
-      widget.controller.text != ''
+      widget.controller?.text != ''
           ? new Visibility(
-              visible: widget.focusNode.hasFocus,
+              visible: widget.focusNode?.hasFocus??false,
               child: new InkWell(
                 child: new Padding(
                   padding: EdgeInsets.all(2.0),
                   child: new Image.asset('assets/images/ic_delete.webp'),
                 ),
                 onTap: () {
-                  widget.controller.text = '';
+                  widget.controller?.text = '';
                   setState(() {});
                 },
               ))
@@ -68,7 +68,7 @@ class _VerifyInputState extends State<VerifyInput> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: widget.focusNode.hasFocus
+                    color: widget.focusNode?.hasFocus??false
                         ? Colors.green
                         : lineColor.withOpacity(0.5),
                     width: 0.5),

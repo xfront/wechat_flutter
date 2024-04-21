@@ -4,7 +4,7 @@ class SoundItemContainer extends StatefulWidget {
   final List<Widget> children;
   final VoidCallback onPressed;
 
-  SoundItemContainer({this.children, this.onPressed});
+  SoundItemContainer({required this.children, required this.onPressed});
 
   @override
   _SoundItemContainerState createState() => _SoundItemContainerState();
@@ -16,7 +16,7 @@ class _SoundItemContainerState extends State<SoundItemContainer> {
     return Container(
         width: 100.0,
         padding: EdgeInsets.only(right: 10.0),
-        child: RaisedButton(
+        child: MaterialButton(
           padding: EdgeInsets.only(left: 8.0, right: 4.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,

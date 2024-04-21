@@ -13,7 +13,7 @@ class PublishDynamicPage extends StatefulWidget {
   final List images;
   final int maxImages;
 
-  PublishDynamicPage({Key key, this.images: const [], this.maxImages: 9})
+  PublishDynamicPage({Key? key, this.images= const [], this.maxImages= 9})
       : super(key: key);
 
   @override
@@ -23,15 +23,13 @@ class PublishDynamicPage extends StatefulWidget {
 class _PublishDynamicPageState extends State<PublishDynamicPage> {
 //  List<Asset> _images = [];
 
-  int imageNum;
+  late int imageNum;
 
   @override
   void initState() {
     super.initState();
 
-//    _images = widget.images;
-//
-//    imageNum = _images.length;
+    imageNum = widget.images.length;
   }
 
   @override
@@ -43,7 +41,7 @@ class _PublishDynamicPageState extends State<PublishDynamicPage> {
         actions: <Widget>[
           Container(
             padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
-            child: RaisedButton(
+            child: MaterialButton(
                 onPressed: () {
                   /// TODO
                   Navigator.of(context).pop();
@@ -60,9 +58,9 @@ class _PublishDynamicPageState extends State<PublishDynamicPage> {
             Container(
               padding: EdgeInsets.all(10.0),
               height: 100,
-              child: Form(onWillPop: _onBackPressed, child: TextField()),
+              child: Form(onPopInvoked: _onBackPressed!, child: TextField()),
             ),
-            Line(color: Colors.grey),
+            Line( color: Colors.grey),
             GridView.builder(
                 padding: EdgeInsets.all(10.0),
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -166,7 +164,7 @@ class _PublishDynamicPageState extends State<PublishDynamicPage> {
 //    });
   }
 
-  Future<bool> _onBackPressed() {
+  Future<bool?> _onBackPressed(bool canPop) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -177,14 +175,14 @@ class _PublishDynamicPageState extends State<PublishDynamicPage> {
             //标题的padding值
             actions: <Widget>[
               //操作按钮数组
-              FlatButton(
+              MaterialButton(
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pop(context, false);
                 },
                 child: Text('不保留', style: TextStyles.textGrey14),
               ),
-              FlatButton(
+              MaterialButton(
                 onPressed: () {
                   Navigator.pop(context);
                   Navigator.pop(context, true);

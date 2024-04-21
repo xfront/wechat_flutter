@@ -10,7 +10,7 @@ class TextItemContainer extends StatefulWidget {
   final String action;
   final bool isMyself;
 
-  TextItemContainer({this.text, this.action, this.isMyself = true});
+  TextItemContainer({required this.text, required this.action, this.isMyself = true});
 
   @override
   _TextItemContainerState createState() => _TextItemContainerState();

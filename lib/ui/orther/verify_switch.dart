@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class VerifySwitch extends StatefulWidget {
-  final String title;
+  final String? title;
   final String defStr;
 
   VerifySwitch({this.title, this.defStr = ''});

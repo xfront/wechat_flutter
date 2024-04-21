@@ -35,10 +35,10 @@ class _LoginPageState extends State<LoginPage> {
         new InkWell(
           child: new Text(item, style: TextStyle(color: tipColor)),
           onTap: () {
-            showToast(context, S.of(context).notOpen + item);
+            showToast(context, context.l10n.notOpen + item);
           },
         ),
-        item == S.of(context).weChatSecurityCenter
+        item == context.l10n.weChatSecurityCenter
             ? new Container()
             : new Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -55,10 +55,10 @@ class _LoginPageState extends State<LoginPage> {
         new Padding(
           padding: EdgeInsets.only(
               left: 20.0, top: mainSpace * 3, bottom: mainSpace * 2),
-          child: new Text(S.of(context).mobileNumberLogin,
+          child: new Text(context.l10n.mobileNumberLogin,
               style: TextStyle(fontSize: 25.0)),
         ),
-        new FlatButton(
+        new MaterialButton(
           child: new Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: new Row(
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                 new Container(
                   width: winWidth(context) * 0.25,
                   alignment: Alignment.centerLeft,
-                  child: new Text(S.of(context).phoneCity,
+                  child: new Text(context.l10n.phoneCity,
                       style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.w400)),
                 ),
@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(left: 25.0),
                 child: new Text(
-                  S.of(context).phoneNumber,
+                  context.l10n.phoneNumber,
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400),
                 ),
               ),
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                   FilteringTextInputFormatter(new RegExp(r'[0-9]'), allow: true)
                 ],
                 decoration: InputDecoration(
-                    hintText: S.of(context).phoneNumberHint,
+                    hintText: context.l10n.phoneNumberHint,
                     border: InputBorder.none),
                 onChanged: (text) {
                   setState(() {});
@@ -129,15 +129,15 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
           child: new InkWell(
             child: new Text(
-              S.of(context).userLoginTip,
+              context.l10n.userLoginTip,
               style: TextStyle(color: tipColor),
             ),
-            onTap: () => showToast(context, S.of(context).notOpen),
+            onTap: () => showToast(context, context.l10n.notOpen),
           ),
         ),
         new Space(height: mainSpace * 2.5),
         new ComMomButton(
-          text: S.of(context).nextStep,
+          text: context.l10n.nextStep,
           style: TextStyle(
               color:
                   _tC.text == '' ? Colors.grey.withOpacity(0.8) : Colors.white),
@@ -164,9 +164,9 @@ class _LoginPageState extends State<LoginPage> {
     final model = Provider.of<LoginModel>(context);
 
     List btItem = [
-      S.of(context).retrievePW,
-      S.of(context).emergencyFreeze,
-      S.of(context).weChatSecurityCenter,
+      context.l10n.retrievePW,
+      context.l10n.emergencyFreeze,
+      context.l10n.weChatSecurityCenter,
     ];
 
     return new Scaffold(

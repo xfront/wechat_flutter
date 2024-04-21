@@ -13,7 +13,7 @@ class GroupRemarksPage extends StatefulWidget {
   GroupRemarksPage({
     this.groupInfoType = GroupInfoType.remark,
     this.text = '',
-    this.groupId,
+    this.groupId= '',
   });
 
   @override

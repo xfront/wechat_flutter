@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage>
 
   var tapPos;
   TextSpanBuilder _builder = TextSpanBuilder();
-  StreamSubscription<dynamic> _messageStreamSubscription;
+  StreamSubscription<dynamic>? _messageStreamSubscription;
 
   @override
   void initState() {
@@ -33,12 +33,13 @@ class _HomePageState extends State<HomePage>
     List<ChatList> listChat = str;
     if (!listNoEmpty(listChat)) return;
     _chatData.clear();
-    _chatData..addAll(listChat?.reversed);
+    _chatData..addAll(listChat!.reversed);
     if (mounted) setState(() {});
   }
 
   _showMenu(BuildContext context, Offset tapPos, int type, String id) {
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
     final RelativeRect position = RelativeRect.fromLTRB(tapPos.dx, tapPos.dy,
         overlay.size.width - tapPos.dx, overlay.size.height - tapPos.dy);
     showMenu<String>(
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage>
           new MyPopupMenuItem(child: Text('置顶聊天'), value: '置顶聊天'),
           new MyPopupMenuItem(child: Text('删除该聊天'), value: '删除该聊天'),
           // ignore: missing_return
-        ]).then<String>((String selected) {
+        ]).then<String>((String? selected) {
       switch (selected) {
         case '删除该聊天':
           deleteConversationAndLocalMsgModel(type, id, callback: (str) {
@@ -70,13 +71,12 @@ class _HomePageState extends State<HomePage>
           });
           break;
       }
+      return '';
     });
   }
 
   void canCelListener() {
-    if (_messageStreamSubscription != null) {
-      _messageStreamSubscription.cancel();
-    }
+    _messageStreamSubscription?.cancel();
   }
 
   Future<void> initPlatformState() async {
@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage>
               child: new MyConversationView(
                 imageUrl: model.avatar,
                 title: model?.name ?? '',
-                content: model?.content,
+                content: model!.content,
                 time: timeView(model?.time ?? 0),
                 isBorder: model?.name != _chatData[0].name,
               ),

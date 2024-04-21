@@ -11,9 +11,9 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class GMember {
   GMember(
-      {@required this.groupId,
-      @required this.groupName,
-      @required this.getFaceUrl});
+      {required this.groupId,
+      required this.groupName,
+      required this.getFaceUrl});
 
   final String groupId;
   final String groupName;
@@ -22,7 +22,7 @@ class GMember {
 
 class GroupMemberData {
   getGMembers(Callback callback) {
-    List<GMember> gMembers = new List<GMember>();
+    List<GMember> gMembers = List.empty(growable: true);
     String groupId;
     String groupName;
     String getFaceUrl;

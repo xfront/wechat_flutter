@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'triangle_painter.dart';
 
@@ -5,9 +7,9 @@ const double _kMenuScreenPadding = 8.0;
 
 class MagicPop extends StatefulWidget {
   MagicPop({
-    @required this.onValueChanged,
-    @required this.actions,
-    @required this.child,
+    required this.onValueChanged,
+    required this.actions,
+    required this.child,
     this.pressType = PressType.longPress,
     this.pageMaxChildCount = 5,
     this.backgroundColor = Colors.black,
@@ -68,8 +70,8 @@ enum PressType {
 
 class _PopupMenuRoute extends PopupRoute {
   final BuildContext btnContext;
-  double _height;
-  double _width;
+  double? _height;
+  double? _width;
   final List<String> actions;
   final int _pageMaxChildCount;
   final Color backgroundColor;
@@ -78,8 +80,8 @@ class _PopupMenuRoute extends PopupRoute {
 
   _PopupMenuRoute(this.btnContext, this.actions, this._pageMaxChildCount,
       this.backgroundColor, this.menuWidth, this.menuHeight) {
-    _height = btnContext.size.height;
-    _width = btnContext.size.width;
+    _height = btnContext.size?.height;
+    _width = btnContext.size?.width;
   }
 
   @override
@@ -92,18 +94,18 @@ class _PopupMenuRoute extends PopupRoute {
   }
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
   bool get barrierDismissible => true;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
-    return _MenuPopWidget(this.btnContext, _height, _width, actions,
+    return _MenuPopWidget(this.btnContext, _height!, _width!, actions,
         _pageMaxChildCount, backgroundColor, menuWidth, menuHeight);
   }
 
@@ -141,21 +143,21 @@ class __MenuPopWidgetState extends State<_MenuPopWidget> {
   final double _separatorWidth = 1;
   final double _triangleHeight = 10;
 
-  RenderBox button;
-  RenderBox overlay;
-  RelativeRect position;
+  RenderBox? button;
+  RenderBox? overlay;
+  late RelativeRect position;
 
   @override
   void initState() {
     super.initState();
-    button = widget.btnContext.findRenderObject();
-    overlay = Overlay.of(widget.btnContext).context.findRenderObject();
+    button = widget.btnContext.findRenderObject() as RenderBox;
+    overlay = Overlay.of(widget.btnContext).context.findRenderObject() as RenderBox;
     position = RelativeRect.fromRect(
       Rect.fromPoints(
-        button.localToGlobal(Offset.zero, ancestor: overlay),
-        button.localToGlobal(Offset.zero, ancestor: overlay),
+        button!.localToGlobal(Offset.zero, ancestor: overlay),
+        button!.localToGlobal(Offset.zero, ancestor: overlay),
       ),
-      Offset.zero & overlay.size,
+      Offset.zero & overlay!.size,
     );
   }
 
@@ -203,7 +205,7 @@ class __MenuPopWidgetState extends State<_MenuPopWidget> {
             color: widget.backgroundColor,
             position: position,
             isInverted: true,
-            size: button.size),
+            size: button!.size),
       );
 
       var row = Row(
@@ -308,7 +310,7 @@ class __MenuPopWidgetState extends State<_MenuPopWidget> {
                     painter: TrianglePainter(
                         color: widget.backgroundColor,
                         position: position,
-                        size: button.size),
+                        size: button!.size),
                   ),
           ],
         ),
@@ -408,8 +410,9 @@ class _PopupMenuRouteLayout extends SingleChildLayoutDelegate {
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
     // The menu can be at most the size of the overlay minus 8.0 pixels in each
     // direction.
-    return BoxConstraints.loose(constraints.biggest -
-        const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0));
+    Size sz = constraints.biggest-
+        const Offset(_kMenuScreenPadding * 2.0, _kMenuScreenPadding * 2.0) as Size;
+    return BoxConstraints.loose(sz);
   }
 
   @override

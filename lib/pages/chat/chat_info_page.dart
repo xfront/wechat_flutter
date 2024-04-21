@@ -30,9 +30,10 @@ class _ChatInfoPageState extends State<ChatInfoPage> {
   bool isDoNotDisturb = true;
 
   Widget buildSwitch(item) {
+    var label = item['label']??"";
     return new LabelRow(
-      label: item['label'],
-      margin: item['label'] == '消息免打扰' ? EdgeInsets.only(top: 10.0) : null,
+      label: label,
+      margin: label == '消息免打扰' ? EdgeInsets.only(top: 10.0) : null,
       isLine: item['label'] != '强提醒',
       isRight: false,
       rightW: new SizedBox(

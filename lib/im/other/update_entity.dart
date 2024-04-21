@@ -1,9 +1,9 @@
 class UpdateEntity {
-	String updateInfo;
-	String appVersion;
-	String appName;
-	String appId;
-	String downloadUrl;
+	String? updateInfo;
+	String? appVersion;
+	String? appName;
+	String? appId;
+	String? downloadUrl;
 
 	UpdateEntity({this.updateInfo, this.appVersion, this.appName, this.appId, this.downloadUrl});
 

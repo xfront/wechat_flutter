@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ContactCard extends StatelessWidget {
-  final String img, title, nickName, id, area;
+  final String img;
+  final String?  title, nickName, id, area;
   final bool isBorder;
   final double lineWidth;
 
-  ContactCard({
-    @required this.img,
+  ContactCard({required this.img,
     this.title,
     this.id,
     this.nickName,
@@ -74,10 +74,10 @@ class ContactCard extends StatelessWidget {
               ),
               new Padding(
                 padding: EdgeInsets.only(top: 3.0),
-                child: new Text("昵称：" + nickName ?? '', style: labelStyle),
+                child: new Text("昵称：" + nickName! ?? '', style: labelStyle),
               ),
-              new Text("微信号：" + id ?? '', style: labelStyle),
-              new Text("地区：" + area ?? '', style: labelStyle),
+              new Text("微信号：" + id! ?? '', style: labelStyle),
+              new Text("地区：" + area! ?? '', style: labelStyle),
             ],
           )
         ],

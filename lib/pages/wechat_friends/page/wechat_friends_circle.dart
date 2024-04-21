@@ -14,7 +14,7 @@ import '../ui/item_dynamic.dart';
 //import 'publish_dynamic.dart';
 
 class WeChatFriendsCircle extends StatefulWidget {
-  WeChatFriendsCircle({Key key}) : super(key: key);
+  WeChatFriendsCircle({Key? key}) : super(key: key);
 
   @override
   createState() => _WeChatFriendsCircleState();
@@ -24,7 +24,7 @@ class _WeChatFriendsCircleState extends State<WeChatFriendsCircle> {
   List<FriendsDynamic> friendsDynamic = [];
 
   double navAlpha = 0;
-  double headerHeight;
+  late double headerHeight;
   ScrollController scrollController = ScrollController();
 
   Color c = Colors.grey;

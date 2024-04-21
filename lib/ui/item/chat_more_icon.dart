@@ -4,9 +4,9 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class ChatMoreIcon extends StatelessWidget {
   final bool isMore;
-  final String value;
-  final VoidCallback onTap;
-  final GestureTapCallback moreTap;
+  final String? value;
+  final VoidCallback? onTap;
+  final GestureTapCallback? moreTap;
 
   ChatMoreIcon({
     this.isMore = false,
@@ -38,7 +38,7 @@ class ChatMoreIcon extends StatelessWidget {
             ),
             onTap: () {
               if (moreTap != null) {
-                moreTap();
+                moreTap?.call();
               }
             },
           );

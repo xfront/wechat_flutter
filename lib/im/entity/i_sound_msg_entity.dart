@@ -1,12 +1,12 @@
 class ISoundMsgEntity {
-	int downloadFlag;
-	String path;
-	int businessId;
-	int dataSize;
-	List<String> soundUrls;
-	String uuid;
-	int taskId;
-	int second;
+	int? downloadFlag;
+	String? path;
+	int? businessId;
+	int? dataSize;
+	List<String>? soundUrls;
+	String? uuid;
+	int? taskId;
+	int? second;
 
 	ISoundMsgEntity({this.downloadFlag, this.path, this.businessId, this.dataSize, this.soundUrls, this.uuid, this.taskId, this.second});
 

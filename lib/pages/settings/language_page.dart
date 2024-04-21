@@ -45,7 +45,7 @@ class _LanguagePageState extends State<LanguagePage> {
       }),
     );
     return new Scaffold(
-      appBar: new ComMomBar(title: S.of(context).multiLanguage),
+      appBar: new ComMomBar(title: context.l10n.multiLanguage),
       body: body,
     );
   }

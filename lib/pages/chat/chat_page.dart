@@ -17,9 +17,9 @@ import 'chat_info_page.dart';
 enum ButtonType { voice, more }
 
 class ChatPage extends StatefulWidget {
-  final String title;
+  final String? title;
   final int type;
-  final String id;
+  final String? id;
 
   ChatPage({this.id, this.title, this.type = 1});
 
@@ -29,12 +29,12 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<ChatData> chatData = [];
-  StreamSubscription<dynamic> _msgStreamSubs;
+  late StreamSubscription<dynamic> _msgStreamSubs;
   bool _isVoice = false;
   bool _isMore = false;
   double keyboardHeight = 270.0;
   bool _emojiState = false;
-  String newGroupName;
+  late String newGroupName;
 
   TextEditingController _textController = TextEditingController();
   FocusNode _focusNode = new FocusNode();
@@ -61,7 +61,7 @@ class _ChatPageState extends State<ChatPage> {
 
   Future getChatMsgData() async {
     final str =
-        await ChatDataRep().repData(widget?.id ?? widget.title, widget.type);
+        await ChatDataRep().repData(widget?.id ?? widget.title!, widget.type);
     List<ChatData> listChat = str;
     chatData.clear();
     chatData..addAll(listChat.reversed);
@@ -195,7 +195,7 @@ class _ChatPageState extends State<ChatPage> {
           onTap: () => _handleSubmittedData(_textController.text),
           moreTap: () => onTapHandle(ButtonType.more),
         ),
-        id: widget.id,
+        id: widget.id!,
         type: widget.type,
       ),
       new Visibility(
@@ -225,16 +225,16 @@ class _ChatPageState extends State<ChatPage> {
         child: new Image.asset('assets/images/right_more.png'),
         onTap: () => routePush(widget.type == 2
             ? new GroupDetailsPage(
-                widget?.id ?? widget.title,
+                widget?.id ?? widget.title!,
                 callBack: (v) {},
               )
-            : new ChatInfoPage(widget.id)),
+            : new ChatInfoPage(widget.id!)),
       )
     ];
 
     return Scaffold(
       appBar: new ComMomBar(
-          title: newGroupName ?? widget.title, rightDMActions: rWidget),
+          title: newGroupName, rightDMActions: rWidget),
       body: new MainInputBody(
         onTap: () => setState(
           () {
@@ -258,7 +258,7 @@ class _ChatPageState extends State<ChatPage> {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return GestureDetector(
-              child: Image.asset(EmojiUitl.instance.emojiMap["[${index + 1}]"]),
+              child: Image.asset(EmojiUitl.instance.emojiMap["[${index + 1}]"]!),
               behavior: HitTestBehavior.translucent,
               onTap: () {
                 insertText("[${index + 1}]");

@@ -7,7 +7,7 @@ import 'package:wechat_flutter/im/info_handle.dart';
 import 'package:wechat_flutter/provider/loginc/global_loginc.dart';
 
 class GlobalModel extends ChangeNotifier {
-  BuildContext context;
+  BuildContext? context;
 
   ///app的名字
   String appName = "微信flutter";
@@ -21,12 +21,12 @@ class GlobalModel extends ChangeNotifier {
   ///当前语言
   List<String> currentLanguageCode = ["zh", "CN"];
   String currentLanguage = "中文";
-  Locale currentLocale;
+  Locale? currentLocale;
 
   ///是否进入登录页
   bool goToLogin = true;
 
-  GlobalLogic logic;
+  late GlobalLogic logic;
 
   GlobalModel() {
     logic = GlobalLogic(this);
@@ -65,12 +65,12 @@ class GlobalModel extends ChangeNotifier {
       await SharedUtil.instance.saveInt(Keys.gender, result[0]['gender']);
     } else {
       IPersonInfoEntity model = IPersonInfoEntity.fromJson(result[0]);
-      nickName = model.nickname;
-      await SharedUtil.instance.saveString(Keys.nickName, model.nickname);
-      avatar = model.faceURL;
-      await SharedUtil.instance.saveString(Keys.faceUrl, model.faceURL);
-      gender = model.gender;
-      await SharedUtil.instance.saveInt(Keys.gender, model.gender);
+      nickName = model.nickname!;
+      await SharedUtil.instance.saveString(Keys.nickName, nickName);
+      avatar = model.faceURL!;
+      await SharedUtil.instance.saveString(Keys.faceUrl, avatar);
+      gender = model.gender!;
+      await SharedUtil.instance.saveInt(Keys.gender, gender);
     }
   }
 

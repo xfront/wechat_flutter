@@ -15,9 +15,9 @@ class _ContactsPageState extends State<ContactsPage>
   var currentLetter = '';
   var isNull = false;
 
-  ScrollController sC;
+  ScrollController? sC;
   List<Contact> _contacts = [];
-  StreamSubscription<dynamic> _messageStreamSubscription;
+  StreamSubscription<dynamic>? _messageStreamSubscription;
 
   List<ContactItem> _functionButtons = [
     new ContactItem(
@@ -61,12 +61,12 @@ class _ContactsPageState extends State<ContactsPage>
   @override
   void dispose() {
     super.dispose();
-    if (sC != null) sC.dispose();
+    sC?.dispose();
     canCelListener();
   }
 
   String _getLetter(BuildContext context, double tileHeight, Offset globalPos) {
-    RenderBox _box = context.findRenderObject();
+    RenderBox _box = context.findRenderObject()! as RenderBox;
     var local = _box.globalToLocal(globalPos);
     int index = (local.dy ~/ tileHeight).clamp(0, INDEX_BAR_WORDS.length - 1);
     return INDEX_BAR_WORDS[index];
@@ -76,7 +76,7 @@ class _ContactsPageState extends State<ContactsPage>
     if (_letterPosMap.isNotEmpty) {
       final _pos = _letterPosMap[letter];
       if (_pos != null)
-        sC.animateTo(_pos,
+        sC?.animateTo(_pos,
             curve: Curves.easeOut, duration: Duration(milliseconds: 200));
     }
   }
@@ -99,7 +99,7 @@ class _ContactsPageState extends State<ContactsPage>
 
     void transparentMethod() {
       indexBarBg = Colors.transparent;
-      currentLetter = null;
+      //currentLetter = null;
       setState(() {});
     }
 
@@ -119,7 +119,7 @@ class _ContactsPageState extends State<ContactsPage>
   }
 
   void canCelListener() {
-    if (_messageStreamSubscription != null) _messageStreamSubscription.cancel();
+    _messageStreamSubscription?.cancel();
   }
 
   Future<void> initPlatformState() async {

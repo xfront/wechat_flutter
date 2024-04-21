@@ -6,7 +6,7 @@ class EmojiText extends SpecialText {
   static const String flag = "[";
   final int start;
 
-  EmojiText(TextStyle textStyle, {this.start})
+  EmojiText(TextStyle textStyle, {this.start=0})
       : super(EmojiText.flag, "]", textStyle);
 
   @override
@@ -20,7 +20,7 @@ class EmojiText extends SpecialText {
       ///fontSize 26 and text height =30.0
       //final double fontSize = 26.0;
 
-      return ImageSpan(AssetImage(EmojiUitl.instance.emojiMap[key]),
+      return ImageSpan(AssetImage(EmojiUitl.instance.emojiMap[key]!),
           actualText: key,
           imageWidth: size,
           imageHeight: size,
@@ -40,11 +40,11 @@ class EmojiUitl {
 
   final String _emojiFilePath = "assets";
 
-  static EmojiUitl _instance;
+  static EmojiUitl? _instance;
 
   static EmojiUitl get instance {
     if (_instance == null) _instance = new EmojiUitl._();
-    return _instance;
+    return _instance!;
   }
 
   EmojiUitl._() {

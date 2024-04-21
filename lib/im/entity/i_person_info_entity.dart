@@ -1,14 +1,14 @@
 class IPersonInfoEntity {
-  int birthday;
-  String faceURL;
-  String identifier;
-  int role;
-  int gender;
-  int level;
-  String nickname;
-  int language;
-  IPersonInfoCustominfo customInfo;
-  int allowType;
+  int? birthday;
+  String? faceURL;
+  String? identifier;
+  int? role;
+  int? gender;
+  int? level;
+  String? nickname;
+  int? language;
+  IPersonInfoCustominfo? customInfo;
+  int? allowType;
 
   IPersonInfoEntity(
       {this.birthday,
@@ -47,9 +47,7 @@ class IPersonInfoEntity {
     data['level'] = this.level;
     data['nickname'] = this.nickname;
     data['language'] = this.language;
-    if (this.customInfo != null) {
-      data['customInfo'] = this.customInfo.toJson();
-    }
+    data['customInfo'] = this.customInfo?.toJson();
     data['allowType'] = this.allowType;
     return data;
   }

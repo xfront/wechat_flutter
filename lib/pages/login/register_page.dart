@@ -29,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String localAvatarImgPath = '';
 
   _openGallery() async {
-    XFile img = await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? img = await ImagePicker.platform.getImageFromSource(source: ImageSource.gallery);
 
     if (img != null) {
       localAvatarImgPath = img.path;
@@ -44,15 +44,15 @@ class _RegisterPageState extends State<RegisterPage> {
       new Padding(
         padding: EdgeInsets.only(
             left: 5.0, top: mainSpace * 3, bottom: mainSpace * 2),
-        child: new Text(S.of(context).numberRegister,
+        child: new Text(context.l10n.numberRegister,
             style: TextStyle(fontSize: 25.0)),
       ),
       new Row(
         children: <Widget>[
           new Expanded(
             child: new EditView(
-              label: S.of(context).nickName,
-              hint: S.of(context).exampleName,
+              label: context.l10n.nickName,
+              hint: context.l10n.exampleName,
               bottomLineColor:
                   nickF.hasFocus ? Colors.green : lineColor.withOpacity(0.5),
               focusNode: nickF,
@@ -81,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
               new Container(
                 width: winWidth(context) * 0.25,
                 alignment: Alignment.centerLeft,
-                child: new Text(S.of(context).phoneCity,
+                child: new Text(context.l10n.phoneCity,
                     style:
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400)),
               ),
@@ -107,15 +107,15 @@ class _RegisterPageState extends State<RegisterPage> {
         },
       ),
       new EditView(
-        label: S.of(context).phoneNumber,
-        hint: S.of(context).phoneNumberHint,
+        label: context.l10n.phoneNumber,
+        hint: context.l10n.phoneNumberHint,
         controller: phoneC,
         focusNode: phoneF,
         onTap: () => setState(() {}),
       ),
       new EditView(
-        label: S.of(context).passWord,
-        hint: S.of(context).pwTip,
+        label: context.l10n.passWord,
+        hint: context.l10n.pwTip,
         controller: pWC,
         focusNode: pWF,
         bottomLineColor:
@@ -144,22 +144,22 @@ class _RegisterPageState extends State<RegisterPage> {
           new Padding(
             padding: EdgeInsets.only(left: mainSpace / 2),
             child: new Text(
-              S.of(context).readAgree,
+              context.l10n.readAgree,
               style: TextStyle(color: Colors.grey),
             ),
           ),
           new InkWell(
             child: new Text(
-              S.of(context).protocolName,
+              context.l10n.protocolName,
               style: TextStyle(color: tipColor),
             ),
             onTap: () => routePush(new WebViewPage(
-                S.of(context).protocolUrl, S.of(context).protocolTitle)),
+                context.l10n.protocolUrl, context.l10n.protocolTitle)),
           ),
         ],
       ),
       new ComMomButton(
-        text: S.of(context).register,
+        text: context.l10n.register,
         style: TextStyle(
             color:
                 pWC.text == '' ? Colors.grey.withOpacity(0.8) : Colors.white),

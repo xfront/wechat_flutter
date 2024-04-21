@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-showVoiceDialog(BuildContext context, {int index}) {
+showVoiceDialog(BuildContext context, {int index=0}) {
   OverlayEntry overlayEntry = new OverlayEntry(builder: (content) {
     return Positioned(
       top: MediaQuery.of(context).size.height * 0.5 - 80,

@@ -12,9 +12,9 @@ import 'package:photo_manager/photo_manager.dart';
 
 class ChatMorePage extends StatefulWidget {
   final int index;
-  final String id;
-  final int type;
-  final double keyboardHeight;
+  final String? id;
+  final int? type;
+  final double? keyboardHeight;
 
   ChatMorePage({this.index = 0, this.id, this.type, this.keyboardHeight});
 
@@ -54,9 +54,9 @@ class _ChatMorePageState extends State<ChatMorePage> {
         // // textDelegate: DefaultAssetsPickerTextDelegate(),
         // routeCurve: Curves.easeIn,
         // routeDuration: const Duration(milliseconds: 500),
-      ).then((List<AssetEntity> result) {
-        result.forEach((AssetEntity element) async {
-          sendImageMsg(widget.id, widget.type, file: await element.file,
+      ).then((List<AssetEntity>? result) {
+        result?.forEach((AssetEntity element) async {
+          sendImageMsg(widget.id!, widget.type!, file: await element.file,
               callback: (v) {
             if (v == null) return;
             Notice.send(WeChatActions.msg(), v ?? '');
@@ -77,7 +77,7 @@ class _ChatMorePageState extends State<ChatMorePage> {
       }
     } else if (name == '红包') {
       showToast(context, '测试发送红包消息');
-      await sendTextMsg('${widget?.id}', widget.type, "测试发送红包消息");
+      await sendTextMsg('${widget?.id}', widget.type!, "测试发送红包消息");
     } else {
       showToast(context, '敬请期待$name');
     }
@@ -96,7 +96,7 @@ class _ChatMorePageState extends State<ChatMorePage> {
           return new MoreItemCard(
             name: name,
             icon: icon,
-            keyboardHeight: widget.keyboardHeight,
+            keyboardHeight: widget.keyboardHeight!,
             onPressed: () => action(name),
           );
         }),

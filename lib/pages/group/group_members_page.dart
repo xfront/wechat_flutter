@@ -16,7 +16,7 @@ class GroupMembersPage extends StatefulWidget {
 }
 
 class _GroupMembersPageState extends State<GroupMembersPage> {
-  Future _futureBuilderFuture;
+  late Future _futureBuilderFuture;
   List memberList = [
     {'user': '+'},
 //    {'user': '-'}
@@ -28,7 +28,7 @@ class _GroupMembersPageState extends State<GroupMembersPage> {
     _futureBuilderFuture = _gerData();
   }
 
-  handle(String uId) {
+  handle(String? uId) {
     if (!strNoEmpty(uId)) {
       routePush(new SelectMembersPage());
 //      routePush(CreateGroupChat(
@@ -53,9 +53,9 @@ class _GroupMembersPageState extends State<GroupMembersPage> {
 
   Widget memberItem(item) {
     List userInfo;
-    String uId;
-    String uFace;
-    String nickName;
+    String uId = '';
+    String uFace = '';
+    String nickName = '';
 
     if (item['user'] == "+" || item['user'] == '-') {
       return new InkWell(
@@ -81,7 +81,7 @@ class _GroupMembersPageState extends State<GroupMembersPage> {
       builder: (context, snap) {
         return new SizedBox(
           width: (winWidth(context) - 60) / 5,
-          child: FlatButton(
+          child: MaterialButton(
             onPressed: () => handle(uId),
             padding: EdgeInsets.all(0),
             highlightColor: Colors.transparent,

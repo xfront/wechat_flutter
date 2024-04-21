@@ -20,27 +20,27 @@ class WebViewPageState extends State<WebViewPage> {
 
   Widget body() {
     return new Builder(builder: (BuildContext context) {
-      return new WebView(
-        initialUrl: widget.url,
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          _controller.complete(webViewController);
-        },
-        javascriptChannels: <JavascriptChannel>[
-          _toasterJavascriptChannel(context),
-        ].toSet(),
-        navigationDelegate: (NavigationRequest request) {
-          if (request.url
-              .startsWith('https://github.com/fluttercandies/wechat_flutter')) {
-            print('blocking navigation to $request}');
-            return NavigationDecision.prevent;
-          }
-          print('allowing navigation to $request');
-          return NavigationDecision.navigate;
-        },
-        onPageFinished: (String url) {
-          print('Page finished loading: $url');
-        },
+      final _controller = WebViewController()
+        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+        ..setNavigationDelegate(
+          NavigationDelegate(
+            onProgress: (int progress) {
+              // print the loading progress to the console
+              // you can use this value to show a progress bar if you want
+              debugPrint("Loading: $progress%");
+            },
+            onPageStarted: (String url) {},
+            onPageFinished: (String url) {},
+            onWebResourceError: (WebResourceError error) {},
+            onNavigationRequest: (NavigationRequest request) {
+              return NavigationDecision.navigate;
+            },
+          ),
+        )
+        ..loadRequest(Uri.parse(widget.url));
+
+      return WebViewWidget(
+        controller: _controller,
       );
     });
   }
@@ -54,14 +54,4 @@ class WebViewPageState extends State<WebViewPage> {
     );
   }
 
-  JavascriptChannel _toasterJavascriptChannel(BuildContext context) {
-    return new JavascriptChannel(
-      name: 'Toaster',
-      onMessageReceived: (JavascriptMessage message) {
-        Scaffold.of(context).showSnackBar(
-          new SnackBar(content: Text(message.message)),
-        );
-      },
-    );
-  }
 }

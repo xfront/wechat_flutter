@@ -9,7 +9,7 @@ class VerificationPage extends StatefulWidget {
   final String nickName;
   final String id;
 
-  VerificationPage({this.nickName = '', this.id});
+  VerificationPage({this.nickName = '', this.id=''});
 
   @override
   _VerificationPageState createState() => new _VerificationPageState();

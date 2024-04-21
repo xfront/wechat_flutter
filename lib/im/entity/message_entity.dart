@@ -14,12 +14,12 @@ import 'package:wechat_flutter/im/entity/person_info_entity.dart';
 import 'chat_list_entity.dart';
 
 class MessageEntity {
-  PersonInfoEntity senderProfile;
-  String remark;
-  int time;
-  MessageMessage message;
-  ChatListEntity timConversation;
-  String status;
+  PersonInfoEntity? senderProfile;
+  String? remark;
+  int? time;
+  MessageMessage? message;
+  ChatListEntity? timConversation;
+  String? status;
 
   MessageEntity(
       {this.senderProfile,
@@ -47,15 +47,15 @@ class MessageEntity {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.senderProfile != null) {
-      data['senderProfile'] = this.senderProfile.toJson();
+      data['senderProfile'] = this.senderProfile!.toJson();
     }
     data['remark'] = this.remark;
     data['time'] = this.time;
     if (this.message != null) {
-      data['message'] = this.message.toJson();
+      data['message'] = this.message!.toJson();
     }
     if (this.timConversation != null) {
-      data['timConversation'] = this.timConversation.toJson();
+      data['timConversation'] = this.timConversation!.toJson();
     }
     data['status'] = this.status;
     return data;
@@ -69,8 +69,8 @@ class MessageEntity {
 *
 * */
 class MessageMessage {
-  String text;
-  String type;
+  String? text;
+  String? type;
 
   MessageMessage({this.text, this.type});
 

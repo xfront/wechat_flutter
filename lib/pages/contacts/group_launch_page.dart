@@ -27,7 +27,7 @@ class _GroupLaunchPageState extends State<GroupLaunchPage> {
 
   FocusNode searchF = new FocusNode();
   TextEditingController searchC = new TextEditingController();
-  ScrollController sC;
+  late ScrollController sC;
 
   final Map _letterPosMap = {INDEX_BAR_WORDS[0]: 0.0};
 
@@ -204,7 +204,7 @@ class _GroupLaunchPageState extends State<GroupLaunchPage> {
         } else {
           Navigator.pop(context);
         }
-        return;
+        return Future.value(true);
       },
     );
   }

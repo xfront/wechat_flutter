@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wechat_flutter/provider/loginc/login_loginc.dart';
 
 class LoginModel extends ChangeNotifier {
-  BuildContext context;
+  BuildContext? context;
 
-  LoginLogic logic;
+  late LoginLogic logic;
 
   String area = '中国大陆（+86）';
 

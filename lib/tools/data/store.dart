@@ -45,7 +45,7 @@ class CacheWidget<T> extends StatefulWidget {
   final StoreBuilder<T> builder;
   final data;
 
-  CacheWidget(this.action, this.builder, {Key key,this.data}) : super(key: key);
+  CacheWidget(this.action, this.builder, {Key? key,this.data}) : super(key: key);
 
   @override
   _CacheWidgetState createState() => new _CacheWidgetState<T>();
@@ -53,7 +53,7 @@ class CacheWidget<T> extends StatefulWidget {
 
 class _CacheWidgetState<T> extends State<CacheWidget<T>>
     with BusStateMixin {
-  T item;
+  late T item;
 
   void init() {
     final action = widget.action;
@@ -71,7 +71,7 @@ class _CacheWidgetState<T> extends State<CacheWidget<T>>
   }
 
   @override
-  void didUpdateWidget(CacheWidget oldWidget) {
+  void didUpdateWidget(CacheWidget<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     busDel(onData);
 
@@ -91,7 +91,7 @@ storeString(String k,v) async {
   prefs.setString(k, v);
 }
 
-Future<String> getStoreValue(String k) async {
+Future<String?> getStoreValue(String k) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.get(k);
+  return prefs.getString(k);
 }

@@ -14,8 +14,8 @@ class ModifyNotificationMessage extends StatefulWidget {
 }
 
 class ModifyNotificationMessageState extends State<ModifyNotificationMessage> {
-  String name;
-  List membersData;
+  late String name;
+  late List membersData;
 
   @override
   void initState() {

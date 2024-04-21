@@ -41,21 +41,21 @@ class _MenuPopWidgetState extends State<MenuPopWidget> {
 
   Color itemColor = itemBgColor;
 
-  RenderBox button;
-  RenderBox overlay;
-  RelativeRect position;
+  RenderBox? button;
+  RenderBox? overlay;
+  late RelativeRect position;
 
   @override
   void initState() {
     super.initState();
-    button = widget.btnContext.findRenderObject();
-    overlay = Overlay.of(widget.btnContext).context.findRenderObject();
+    button = widget.btnContext.findRenderObject() as RenderBox;
+    overlay = Overlay.of(widget.btnContext).context.findRenderObject() as RenderBox;
     position = new RelativeRect.fromRect(
       new Rect.fromPoints(
-        button.localToGlobal(Offset(-10, 100), ancestor: overlay),
-        button.localToGlobal(Offset(-10, 0), ancestor: overlay),
+        button!.localToGlobal(Offset(-10, 100), ancestor: overlay),
+        button!.localToGlobal(Offset(-10, 0), ancestor: overlay),
       ),
-      Offset.zero & overlay.size,
+      Offset.zero & overlay!.size,
     );
   }
 
@@ -93,7 +93,7 @@ class _MenuPopWidgetState extends State<MenuPopWidget> {
             color: itemBgColor,
             position: position,
             isInverted: true,
-            size: button.size,
+            size: button!.size,
             screenWidth: MediaQuery.of(context).size.width,
           ),
         ),
@@ -160,7 +160,7 @@ class _MenuPopWidgetState extends State<MenuPopWidget> {
         ),
       )
     ];
-    return new FlatButton(
+    return new MaterialButton(
       padding: EdgeInsets.all(0),
       onPressed: () {
         isShow = false;

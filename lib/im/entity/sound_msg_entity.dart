@@ -1,13 +1,13 @@
 class SoundMsgEntity {
-	int downloadFlag;
-	int duration;
-	String path;
-	List<String> urls;
-	int businessId;
-	int dataSize;
-	String type;
-	String uuid;
-	int taskId;
+	int? downloadFlag;
+	int? duration;
+	String? path;
+	List<String>? urls;
+	int? businessId;
+	int? dataSize;
+	String? type;
+	String? uuid;
+	int? taskId;
 
 	SoundMsgEntity({this.downloadFlag, this.duration, this.path, this.urls, this.businessId, this.dataSize, this.type, this.uuid, this.taskId});
 

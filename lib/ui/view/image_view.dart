@@ -4,13 +4,13 @@ import 'package:wechat_flutter/tools/wechat_flutter.dart';
 
 class ImageView extends StatelessWidget {
   final String img;
-  final double width;
-  final double height;
-  final BoxFit fit;
+  final double? width;
+  final double? height;
+  final BoxFit? fit;
   final bool isRadius;
 
   ImageView({
-    @required this.img,
+    required this.img,
     this.height,
     this.width,
     this.fit,
@@ -50,8 +50,8 @@ class ImageView extends StatelessWidget {
         ),
         child: new Image.asset(
           defIcon,
-          width: width-1,
-          height: height-1,
+          width: width!-1,
+          height: height!-1,
           fit: width != null && height != null ? BoxFit.fill : fit,
         ),
       );

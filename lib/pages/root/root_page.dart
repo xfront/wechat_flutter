@@ -21,7 +21,7 @@ class _RootPageState extends State<RootPage> {
   }
 
   ifBrokenNetwork() async {
-    final ifNetWork = await SharedUtil.instance.getBoolean(Keys.brokenNetwork);
+    final ifNetWork = await SharedUtil.instance.getBoolean(Keys.brokenNetwork)??false;
     if (ifNetWork) {
       /// 监测网络变化
       subscription.onConnectivityChanged
@@ -30,7 +30,7 @@ class _RootPageState extends State<RootPage> {
             result == ConnectivityResult.wifi) {
           final currentUser = await im.getCurrentLoginUser();
           if (currentUser == '' || currentUser == null) {
-            final account = await SharedUtil.instance.getString(Keys.account);
+            final account = await SharedUtil.instance.getString(Keys.account)??'';
             im.imAutoLogin(account);
           }
           await SharedUtil.instance.saveBoolean(Keys.brokenNetwork, false);
@@ -45,24 +45,24 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     List<TabBarModel> pages = <TabBarModel>[
       new TabBarModel(
-          title: S.of(context).weChat,
+          title: context.l10n.weChat,
           icon: new LoadImage("assets/images/tabbar_chat_c.webp"),
           selectIcon: new LoadImage("assets/images/tabbar_chat_s.webp"),
           page: new HomePage()),
       new TabBarModel(
-        title: S.of(context).contacts,
+        title: context.l10n.contacts,
         icon: new LoadImage("assets/images/tabbar_contacts_c.webp"),
         selectIcon: new LoadImage("assets/images/tabbar_contacts_s.webp"),
         page: new ContactsPage(),
       ),
       new TabBarModel(
-        title: S.of(context).discover,
+        title: context.l10n.discover,
         icon: new LoadImage("assets/images/tabbar_discover_c.webp"),
         selectIcon: new LoadImage("assets/images/tabbar_discover_s.webp"),
         page: new DiscoverPage(),
       ),
       new TabBarModel(
-        title: S.of(context).me,
+        title: context.l10n.me,
         icon: new LoadImage("assets/images/tabbar_me_c.webp"),
         selectIcon: new LoadImage("assets/images/tabbar_me_s.webp"),
         page: new MinePage(),

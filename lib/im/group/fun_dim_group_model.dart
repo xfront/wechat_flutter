@@ -83,10 +83,10 @@ class DimGroup {
   }
 
   static Future<dynamic> getGroupInfoListModel(List<String> groupID,
-      {Callback callback}) async {
+      {Callback? callback}) async {
     try {
       var result = await dim.getGroupInfoList(groupID);
-      callback(result);
+      callback?.call(result);
       return result;
     } on PlatformException {
       print('获取群资料  失败');
@@ -94,10 +94,10 @@ class DimGroup {
   }
 
   static Future<dynamic> deleteGroupModel(String groupId,
-      {Callback callback}) async {
+      {Callback? callback}) async {
     try {
       var result = await dim.deleteGroup(groupId);
-      callback(result);
+      callback?.call(result);
     } on PlatformException {
       print('解散群  失败');
     }
@@ -105,10 +105,10 @@ class DimGroup {
 
   static Future<dynamic> modifyGroupNameModel(
       String groupId, String setGroupName,
-      {Callback callback}) async {
+      {Callback? callback}) async {
     try {
       var result = await dim.modifyGroupName(groupId, setGroupName);
-      callback(result);
+      callback?.call(result);
     } on PlatformException {
       print('修改群名称  失败');
     }
@@ -116,10 +116,10 @@ class DimGroup {
 
   static Future<dynamic> modifyGroupIntroductionModel(
       String groupId, String setIntroduction,
-      {Callback callback}) async {
+      {Callback? callback}) async {
     try {
       var result = await dim.modifyGroupIntroduction(groupId, setIntroduction);
-      callback(result);
+      callback?.call(result);
     } on PlatformException {
       print('修改群简介  失败');
     }
@@ -127,10 +127,10 @@ class DimGroup {
 
   static Future<dynamic> setReceiveMessageOptionModel(
       String groupId, String identifier, int type,
-      {Callback callback}) async {
+      {Callback? callback}) async {
     try {
       var result = await dim.setReceiveMessageOption(groupId, identifier, type);
-      callback(result);
+      callback?.call(result);
     } on PlatformException {
       print('修改群消息提醒选项  失败');
     }

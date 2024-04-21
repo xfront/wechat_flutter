@@ -21,7 +21,7 @@ class ImgMsg extends StatelessWidget {
     var _height = msgInfo['height'].toDouble();
     var resultH = _height > 200.0 ? 200.0 : _height;
     var url = msgInfo['url'];
-    var isFile = File(url).existsSync();
+    bool isFile = File(url).existsSync();
     final globalModel = Provider.of<GlobalModel>(context);
     var body = [
       new MsgAvatar(model: model, globalModel: globalModel),
@@ -44,7 +44,7 @@ class ImgMsg extends StatelessWidget {
           ),
           onTap: () => routePush(
             new PhotoView(
-              imageProvider: isFile ? FileImage(File(url)) : NetworkImage(url),
+              imageProvider: isFile ? FileImage(File(url)) : NetworkImage(url) as ImageProvider,
               onTapUp: (c, f, s) => Navigator.of(context).pop(),
               maxScale: 3.0,
               minScale: 1.0,
